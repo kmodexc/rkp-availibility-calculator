@@ -27,11 +27,11 @@ namespace ExcelSearchBox
             {
                 if (Uri.IsWellFormedUriString(Settings.Default.sourceFile, UriKind.Absolute))
                 {
-                    excelWrapper = new ExcelWrapper(Settings.Default.sourceFile);
+                    excelWrapper = new OfficeExcelWrapper(Settings.Default.sourceFile);
                 }
                 else
                 {
-                    excelWrapper = new ExcelWrapper();
+                    excelWrapper = new OfficeExcelWrapper();
                     MessageBox.Show("Die Quelldatei ist ungültig (\"" + Settings.Default.sourceFile + "\"). Bitte andere Datei einstellen.");
                 }
                 textBoxSourceFile.Text = excelWrapper.GetFilename();
