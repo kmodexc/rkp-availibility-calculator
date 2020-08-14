@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataSheetCreator.cs" />
     <Compile Include="EDRExcelWrapper.cs" />
     <Compile Include="ExcelWrapper.cs" />
     <Compile Include="OfficeExcelWrapper.cs" />

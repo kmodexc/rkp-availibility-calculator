@@ -1,6 +1,7 @@
 ﻿using ExcelSearchBox.Properties;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ExcelSearchBox
@@ -88,7 +89,9 @@ namespace ExcelSearchBox
                 listDetails.Items.Clear();
                 string[] obj = itemList[listSearchResults.SelectedIndex];
                 labelDetailName.Text = "Pumpennummer: " + obj[0];
-                
+                labelTypeCode.Text = "Typenschlüssel: " + obj[1];
+                listDetails.Columns[0].Width = 300;
+                listDetails.Columns[1].Width = 200;
                 for (int cnt = 1; cnt < obj.Length; cnt++)
                 {
                     string[] str = new string[2];
@@ -116,6 +119,19 @@ namespace ExcelSearchBox
         private void SearchBox_Shown(object sender, EventArgs e)
         {
             LoadExcelWrapper();
+        }
+
+        private void buttonDatasheet_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DataSheetCreator dataSheetCreator = new DataSheetCreator();
+                dataSheetCreator.CreateDataSheet(itemList[listSearchResults.SelectedIndex]);
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show(exc.ToString());
+            }            
         }
     }
 }

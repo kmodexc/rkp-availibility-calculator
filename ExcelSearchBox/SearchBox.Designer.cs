@@ -39,14 +39,16 @@
             this.tabDetails = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listDetails = new System.Windows.Forms.ListView();
+            this.columnPropertyName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnPropertyValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.labelTypeCode = new System.Windows.Forms.Label();
             this.labelDetailName = new System.Windows.Forms.Label();
             this.tabSettings = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxSourceFile = new System.Windows.Forms.TextBox();
-            this.columnPropertyName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnPropertyValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.buttonDatasheet = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabSearch.SuspendLayout();
             this.groupSearchResults.SuspendLayout();
@@ -176,8 +178,20 @@
             this.listDetails.UseCompatibleStateImageBehavior = false;
             this.listDetails.View = System.Windows.Forms.View.Details;
             // 
+            // columnPropertyName
+            // 
+            this.columnPropertyName.Text = "Eigenschaft";
+            this.columnPropertyName.Width = 684;
+            // 
+            // columnPropertyValue
+            // 
+            this.columnPropertyValue.Text = "Wert";
+            this.columnPropertyValue.Width = 340;
+            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.buttonDatasheet);
+            this.groupBox2.Controls.Add(this.labelTypeCode);
             this.groupBox2.Controls.Add(this.labelDetailName);
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
@@ -186,10 +200,19 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Übersicht";
             // 
+            // labelTypeCode
+            // 
+            this.labelTypeCode.AutoSize = true;
+            this.labelTypeCode.Location = new System.Drawing.Point(413, 65);
+            this.labelTypeCode.Name = "labelTypeCode";
+            this.labelTypeCode.Size = new System.Drawing.Size(168, 25);
+            this.labelTypeCode.TabIndex = 1;
+            this.labelTypeCode.Text = "Typenschlüssel:";
+            // 
             // labelDetailName
             // 
             this.labelDetailName.AutoSize = true;
-            this.labelDetailName.Location = new System.Drawing.Point(45, 66);
+            this.labelDetailName.Location = new System.Drawing.Point(36, 65);
             this.labelDetailName.Name = "labelDetailName";
             this.labelDetailName.Size = new System.Drawing.Size(180, 25);
             this.labelDetailName.TabIndex = 0;
@@ -233,13 +256,15 @@
             this.textBoxSourceFile.Size = new System.Drawing.Size(862, 31);
             this.textBoxSourceFile.TabIndex = 0;
             // 
-            // columnPropertyName
+            // buttonDatasheet
             // 
-            this.columnPropertyName.Text = "Eigenschaft";
-            // 
-            // columnPropertyValue
-            // 
-            this.columnPropertyValue.Text = "Wert";
+            this.buttonDatasheet.Location = new System.Drawing.Point(1053, 57);
+            this.buttonDatasheet.Name = "buttonDatasheet";
+            this.buttonDatasheet.Size = new System.Drawing.Size(145, 41);
+            this.buttonDatasheet.TabIndex = 2;
+            this.buttonDatasheet.Text = "Datenblatt";
+            this.buttonDatasheet.UseVisualStyleBackColor = true;
+            this.buttonDatasheet.Click += new System.EventHandler(this.buttonDatasheet_Click);
             // 
             // SearchBox
             // 
@@ -290,6 +315,8 @@
         private System.Windows.Forms.Label labelDetailName;
         private System.Windows.Forms.ColumnHeader columnPropertyName;
         private System.Windows.Forms.ColumnHeader columnPropertyValue;
+        private System.Windows.Forms.Label labelTypeCode;
+        private System.Windows.Forms.Button buttonDatasheet;
     }
 }
 
