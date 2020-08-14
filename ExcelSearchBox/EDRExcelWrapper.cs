@@ -9,14 +9,17 @@ namespace ExcelSearchBox
     public class EDRExcelWrapper : ExcelWrapper
     {
         private string filename = @"C:\Users\mariu\OneDrive\Documents\Kennliste.xlsx";
-        private int rowLen = 51;
+        private int colCount;
+        private int rowCount;
 
         public EDRExcelWrapper()
         {
+            CalcTableSize();
         }
         public EDRExcelWrapper(string str)
         {
             filename = str;
+            CalcTableSize();
         }
 
         public string GetFilename()
@@ -24,17 +27,35 @@ namespace ExcelSearchBox
             return filename;
         }
 
-        public string[] GetCol(int c)
+        public void CalcTableSize()
         {
-            string[] ret = new string[rowLen];
             using (var stream = File.Open(filename, FileMode.Open, FileAccess.Read))
             {
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
                     var result = reader.AsDataSet();
-                    for (int cnt = 0; cnt < rowLen; cnt++)
+                    var table = result.Tables[0];
+                    rowCount = table.Rows.Count;
+                    colCount = table.Columns.Count;
+                }
+            }
+        }
+
+        public string[] GetCol(int c)
+        {
+            string[] ret;
+            using (var stream = File.Open(filename, FileMode.Open, FileAccess.Read))
+            {
+                using (var reader = ExcelReaderFactory.CreateReader(stream))
+                {
+                    var result = reader.AsDataSet();
+                    var table = result.Tables[0];
+                    var row = table.Rows[c];
+                    var colCount = table.Columns.Count;
+                    ret = new string[colCount];
+                    for (int cnt = 0; cnt < colCount; cnt++)
                     {
-                        ret[cnt] = (result.Tables[0].Rows[c][cnt]).ToString();
+                        ret[cnt] = (row[cnt]).ToString();
                     }
                 }
             }
@@ -43,8 +64,8 @@ namespace ExcelSearchBox
 
         private string[] GetCol(DataRow row)
         {
-            string[] ret = new string[rowLen];
-            for (int cnt = 0; cnt < rowLen; cnt++)
+            string[] ret = new string[colCount];
+            for (int cnt = 0; cnt < colCount; cnt++)
             {
                 ret[cnt] = (row[cnt]).ToString();
             }

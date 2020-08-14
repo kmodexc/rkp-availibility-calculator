@@ -140,29 +140,6 @@ namespace ExcelSearchBox
             }
             return ret;
         }
-        public string[] GetFirstCol()
-        {
-            if (!isFileInUse) throw new Exception("File not open");
-            return ColToStr(xlRange, 1);
-        }
-        public string[] GetSecCol()
-        {
-            if (!isFileInUse) throw new Exception("File not open");
-            return ColToStr(xlRange, 2);
-        }
-        public string[] GetThirdCol()
-        {
-            if (!isFileInUse) throw new Exception("File not open");
-            return ColToStr(xlRange, 3);
-        }
-        public void PrintCol(string[] str)
-        {
-            for (int j = 0; j < str.Length; j++)
-            {
-                Console.Write(str[j] + "\t");
-            }
-            Console.WriteLine();
-        }
         public string[] ColToStr(Range range, int row)
         {
             if (!isFileInUse) throw new Exception("File not open");
@@ -205,7 +182,7 @@ namespace ExcelSearchBox
         public string[] GetCol(int c)
         {
             if (!isFileInUse) throw new Exception("File not open");
-            return ColToStr(xlRange, c);
+            return ColToStr(xlRange, c+1);
         }
     }
 }

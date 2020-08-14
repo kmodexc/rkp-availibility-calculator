@@ -30,7 +30,7 @@ namespace ExcelSearchBox
                     MessageBox.Show("Die Quelldatei ist ungültig (\"" + Settings.Default.sourceFile + "\"). Bitte andere Datei einstellen.");
                 }
                 textBoxSourceFile.Text = excelWrapper.GetFilename();
-                nameCol = excelWrapper.GetCol(3);
+                nameCol = excelWrapper.GetCol(2);
                 if (nameCol == null)
                 {
                     MessageBox.Show("Die Quelldatei ist ungültig. Bitte andere Datei einstellen.");
@@ -88,9 +88,13 @@ namespace ExcelSearchBox
                 listDetails.Items.Clear();
                 string[] obj = itemList[listSearchResults.SelectedIndex];
                 labelDetailName.Text = "Pumpennummer: " + obj[0];
-                for (int cnt = 2; cnt < obj.Length; cnt++)
+                
+                for (int cnt = 1; cnt < obj.Length; cnt++)
                 {
-                    listDetails.Items.Add($"{nameCol[cnt],-100}\t{obj[cnt],-30}");
+                    string[] str = new string[2];
+                    str[0] = nameCol[cnt];
+                    str[1] = obj[cnt];
+                    listDetails.Items.Add(new ListViewItem(str));
                 }
             }
             catch (Exception exc)

@@ -38,13 +38,15 @@
             this.textBoxSearchString = new System.Windows.Forms.TextBox();
             this.tabDetails = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.listDetails = new System.Windows.Forms.ListBox();
+            this.listDetails = new System.Windows.Forms.ListView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.labelDetailName = new System.Windows.Forms.Label();
             this.tabSettings = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxSourceFile = new System.Windows.Forms.TextBox();
+            this.columnPropertyName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnPropertyValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl.SuspendLayout();
             this.tabSearch.SuspendLayout();
             this.groupSearchResults.SuspendLayout();
@@ -162,12 +164,17 @@
             // 
             // listDetails
             // 
-            this.listDetails.FormattingEnabled = true;
-            this.listDetails.ItemHeight = 25;
+            this.listDetails.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnPropertyName,
+            this.columnPropertyValue});
+            this.listDetails.GridLines = true;
+            this.listDetails.HideSelection = false;
             this.listDetails.Location = new System.Drawing.Point(20, 30);
             this.listDetails.Name = "listDetails";
             this.listDetails.Size = new System.Drawing.Size(1178, 529);
             this.listDetails.TabIndex = 0;
+            this.listDetails.UseCompatibleStateImageBehavior = false;
+            this.listDetails.View = System.Windows.Forms.View.Details;
             // 
             // groupBox2
             // 
@@ -226,6 +233,14 @@
             this.textBoxSourceFile.Size = new System.Drawing.Size(862, 31);
             this.textBoxSourceFile.TabIndex = 0;
             // 
+            // columnPropertyName
+            // 
+            this.columnPropertyName.Text = "Eigenschaft";
+            // 
+            // columnPropertyValue
+            // 
+            this.columnPropertyValue.Text = "Wert";
+            // 
             // SearchBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -271,8 +286,10 @@
         private System.Windows.Forms.TabPage tabDetails;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.ListBox listDetails;
+        private System.Windows.Forms.ListView listDetails;
         private System.Windows.Forms.Label labelDetailName;
+        private System.Windows.Forms.ColumnHeader columnPropertyName;
+        private System.Windows.Forms.ColumnHeader columnPropertyValue;
     }
 }
 
