@@ -1,12 +1,6 @@
 ﻿using ExcelSearchBox.Properties;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ExcelSearchBox
@@ -27,15 +21,15 @@ namespace ExcelSearchBox
             {
                 if (Uri.IsWellFormedUriString(Settings.Default.sourceFile, UriKind.Absolute))
                 {
-                    excelWrapper = new ExcelWrapper(Settings.Default.sourceFile);
+                    excelWrapper = new OfficeExcelWrapper(Settings.Default.sourceFile);
                 }
                 else
                 {
-                    excelWrapper = new ExcelWrapper();
+                    excelWrapper = new OfficeExcelWrapper();
                     MessageBox.Show("Die Quelldatei ist ungültig (\"" + Settings.Default.sourceFile + "\"). Bitte andere Datei einstellen.");
                 }
                 textBoxSourceFile.Text = excelWrapper.GetFilename();
-                nameCol = excelWrapper.GetThirdCol();
+                nameCol = excelWrapper.GetCol(3);
                 if (nameCol == null)
                 {
                     MessageBox.Show("Die Quelldatei ist ungültig. Bitte andere Datei einstellen.");
@@ -97,7 +91,7 @@ namespace ExcelSearchBox
                 labelDetailName.Text = "Pumpennummer: " + obj[0];
                 for (int cnt = 2; cnt < obj.Length; cnt++)
                 {
-                    listDetails.Items.Add($"{nameCol[cnt],-100}{obj[cnt],-30}");
+                    listDetails.Items.Add($"{nameCol[cnt],-100}\t{obj[cnt],-30}");
                 }
             }
             catch (Exception exc)
