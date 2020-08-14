@@ -9,6 +9,7 @@ namespace ExcelSearchBox
     {
         private ExcelWrapper excelWrapper;
         private string[] nameCol;
+        private List<string[]> itemList;
 
         public SearchBox()
         {
@@ -21,11 +22,11 @@ namespace ExcelSearchBox
             {
                 if (Uri.IsWellFormedUriString(Settings.Default.sourceFile, UriKind.Absolute))
                 {
-                    excelWrapper = new OfficeExcelWrapper(Settings.Default.sourceFile);
+                    excelWrapper = new EDRExcelWrapper(Settings.Default.sourceFile);
                 }
                 else
                 {
-                    excelWrapper = new OfficeExcelWrapper();
+                    excelWrapper = new EDRExcelWrapper();
                     MessageBox.Show("Die Quelldatei ist ungültig (\"" + Settings.Default.sourceFile + "\"). Bitte andere Datei einstellen.");
                 }
                 textBoxSourceFile.Text = excelWrapper.GetFilename();
@@ -49,18 +50,18 @@ namespace ExcelSearchBox
 
                 Cursor.Current = Cursors.WaitCursor;
 
-                var res = excelWrapper.SearchRow(textBoxSearchString.Text);
+                itemList = excelWrapper.SearchRow(textBoxSearchString.Text);
 
                 Cursor.Current = Cursors.Default;
 
-                if (res == null)
+                if (itemList == null)
                 {
                     MessageBox.Show("Nichts gefunden");
                     return;
                 }
-                foreach (string[] arr in res)
+                for(int cnt=0;cnt<itemList.Count;cnt++)
                 {
-                    listSearchResults.Items.Add(arr[0]);
+                    listSearchResults.Items.Add(itemList[cnt][0]);
                 }
             }
             catch (Exception exc)
@@ -85,9 +86,7 @@ namespace ExcelSearchBox
                 tabControl.SelectedTab = tabDetails;
                 labelDetailName.Text = "";
                 listDetails.Items.Clear();
-                Cursor.Current = Cursors.WaitCursor;
-                string[] obj = excelWrapper.SearchRow(listSearchResults.SelectedItem.ToString())[0];
-                Cursor.Current = Cursors.Default;
+                string[] obj = itemList[listSearchResults.SelectedIndex];
                 labelDetailName.Text = "Pumpennummer: " + obj[0];
                 for (int cnt = 2; cnt < obj.Length; cnt++)
                 {
