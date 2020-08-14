@@ -121,11 +121,6 @@ namespace ExcelSearchBox
             int rows = xlRange.Rows.Count;
             Range cells = xlWorksheet.Columns["A:A"].Cells;
 
-            foreach (var cell in cells)
-            {
-                Console.WriteLine(cell.ToString());
-            }
-
             for (int i = 1; i <= rows; i++)
             {
                 //write the value to the console
@@ -205,6 +200,12 @@ namespace ExcelSearchBox
             Marshal.ReleaseComObject(xlApp);
 
             isFileInUse = false;
+        }
+
+        public string[] GetCol(int c)
+        {
+            if (!isFileInUse) throw new Exception("File not open");
+            return ColToStr(xlRange, c);
         }
     }
 }
