@@ -65,11 +65,17 @@ namespace ExcelSearchBox
 
                                 if (descDict[key].ContainsKey(row[1].ToString()))
                                 {
+#if DEBUG
                                     Console.WriteLine(row[1].ToString());
                                     Console.WriteLine(row[2].ToString());
                                     Console.WriteLine(descDict[key][row[1].ToString()]);
                                     Console.WriteLine();
+#endif
+#if !DEBUG
+                                    continue;
+#endif
                                 }
+
 
                                 // todo for 12
 
