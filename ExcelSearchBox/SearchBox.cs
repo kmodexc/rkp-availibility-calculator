@@ -27,14 +27,19 @@ namespace ExcelSearchBox
                 }
                 else
                 {
+#if DEBUG
                     excelWrapper = new EDRExcelWrapper();
+#endif
                     MessageBox.Show("Die Quelldatei ist ungültig (\"" + Settings.Default.sourceFile + "\"). Bitte andere Datei einstellen.");
                 }
-                textBoxSourceFile.Text = excelWrapper.GetFilename();
-                nameCol = excelWrapper.GetCol(2);
-                if (nameCol == null)
+                if (excelWrapper != null)
                 {
-                    MessageBox.Show("Die Quelldatei ist ungültig. Bitte andere Datei einstellen.");
+                    textBoxSourceFile.Text = excelWrapper.GetFilename();
+                    nameCol = excelWrapper.GetCol(2);
+                    if (nameCol == null)
+                    {
+                        MessageBox.Show("Die Quelldatei ist ungültig. Bitte andere Datei einstellen.");
+                    }
                 }
             }
             catch (Exception exc)
@@ -45,6 +50,7 @@ namespace ExcelSearchBox
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
+            if (excelWrapper == null) return;
             try
             {
                 listSearchResults.Items.Clear();
@@ -60,7 +66,7 @@ namespace ExcelSearchBox
                     MessageBox.Show("Nichts gefunden");
                     return;
                 }
-                for(int cnt=0;cnt<itemList.Count;cnt++)
+                for (int cnt = 0; cnt < itemList.Count; cnt++)
                 {
                     listSearchResults.Items.Add(itemList[cnt][0]);
                 }
@@ -73,6 +79,7 @@ namespace ExcelSearchBox
 
         private void textBoxSearchString_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (excelWrapper == null) return;
             if (e.KeyChar == (char)13)
             {
                 buttonSearch_Click(sender, e);
@@ -81,6 +88,7 @@ namespace ExcelSearchBox
 
         private void listSearchResults_DoubleClick(object sender, EventArgs e)
         {
+            if (excelWrapper == null) return;
             try
             {
                 if (listSearchResults.SelectedIndex < 0) return;
@@ -108,11 +116,14 @@ namespace ExcelSearchBox
 
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (excelWrapper.GetFilename() != textBoxSourceFile.Text)
+            if (Uri.IsWellFormedUriString(textBoxSearchString.Text, UriKind.Absolute))
             {
-                Settings.Default.sourceFile = textBoxSourceFile.Text;
-                Settings.Default.Save();
-                LoadExcelWrapper();
+                if (excelWrapper == null || excelWrapper.GetFilename() != textBoxSourceFile.Text)
+                {
+                    Settings.Default.sourceFile = textBoxSourceFile.Text;
+                    Settings.Default.Save();
+                    LoadExcelWrapper();
+                }
             }
         }
 
@@ -123,6 +134,7 @@ namespace ExcelSearchBox
 
         private void buttonDatasheet_Click(object sender, EventArgs e)
         {
+            if (excelWrapper == null) return;
             try
             {
                 DataSheetCreator dataSheetCreator = new DataSheetCreator();
@@ -141,7 +153,7 @@ namespace ExcelSearchBox
             catch (Exception exc)
             {
                 MessageBox.Show(exc.ToString());
-            }            
+            }
         }
     }
 }
