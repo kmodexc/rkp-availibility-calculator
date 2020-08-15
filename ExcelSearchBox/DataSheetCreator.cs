@@ -51,6 +51,7 @@ namespace ExcelSearchBox
                         {
                             if (!string.IsNullOrWhiteSpace(row[1].ToString()))
                             {
+
                                 // todo for 12
 
                                 if (descDict[key].ContainsKey(row[1].ToString()))
@@ -63,14 +64,17 @@ namespace ExcelSearchBox
 
                                 // todo for 12
 
-
-                                descDict[key].Add(row[1].ToString(), row[2].ToString());
-                            }                            
+                                switch (key)
+                                {
+                                    case 3:
+                                    case 12:
+                                        break;
+                                    default:
+                                        descDict[key].Add(row[1].ToString(), row[2].ToString());
+                                        break;
+                                }
+                            }
                         }
-
-                        // last parameter can not be exactly parsed
-                        if (key >= 12) break;
-
                     }
                 }
             }
@@ -80,11 +84,32 @@ namespace ExcelSearchBox
             var csv = new StringBuilder();
             csv.AppendLine("Pumpennummer:;" + obj[0]);
             csv.AppendLine("Pumpenschlüssel:;" + obj[1]);
-            for (int cnt = 0; (cnt+1) < descDict.Length && (cnt+7) < obj.Length; cnt++)
+            for (int cnt = 0; (cnt + 7) < obj.Length; cnt++)
             {
                 int objIndex = cnt + 7;
-                int dictIndex = cnt + 1;
+                int dictIndex = (cnt + 1);
+                if (dictIndex > 12)
+                {
+                    dictIndex = ((cnt - 12) % 8) + 5;
+
+                    // no more modules (double pump)
+                    if (dictIndex == 5)
+                    {
+                        if (string.IsNullOrWhiteSpace(obj[objIndex]))
+                            break;
+                        else
+                        {
+                            // info about what stage
+                            csv.AppendLine("Pumpenstufe " + (((cnt - 12) / 8) + 2));
+                        }
+                    }
+                }
                 string keyValue = (descDict[dictIndex].ContainsKey(obj[objIndex]) ? descDict[dictIndex][obj[objIndex]] : "");
+                // rpm case
+                if (dictIndex == 3)
+                {
+                    keyValue = "n = " + obj[objIndex] + "00 min-1";
+                }
 
                 keyValue = keyValue.Replace('\n', '\t');
                 keyValue = keyValue.Replace('\r', '\t');
@@ -100,7 +125,7 @@ namespace ExcelSearchBox
 
                 csv.AppendLine(propertys[dictIndex] + ';' + obj[objIndex] + ';' + keyValue);
             }
-            File.WriteAllText(obj[0] + ".csv", csv.ToString(),Encoding.UTF8);
+            File.WriteAllText(obj[1] + ".csv", csv.ToString(), Encoding.UTF8);
         }
     }
 }
