@@ -21,6 +21,14 @@ namespace ExcelSearchBox
             propertys = new string[13];
             CreateDictionary();
         }
+        public string GetFilename()
+        {
+            return filename;
+        }
+        public void SetFilename(string str)
+        {
+            filename = str;
+        }
         private void CreateDictionary()
         {
             using (var stream = File.Open(filename, FileMode.Open, FileAccess.Read))
