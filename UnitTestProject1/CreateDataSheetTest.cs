@@ -11,7 +11,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void NoException()
         {
-            DataSheetCreator dataSheetCreator = new DataSheetCreator();
+            DataSheetCreator dataSheetCreator = new DataSheetCreator(@"C:\Users\mariu\OneDrive\Documents\Kennliste2.xlsx");
             string[] obj = new string[100];
             for (int cnt = 0; cnt < obj.Length; cnt++) obj[cnt] = "testStr_" + cnt;
             dataSheetCreator.CreateDataSheet(obj);
@@ -19,7 +19,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Descriptions()
         {
-            DataSheetCreator dataSheetCreator = new DataSheetCreator();
+            DataSheetCreator dataSheetCreator = new DataSheetCreator(@"C:\Users\mariu\OneDrive\Documents\Kennliste2.xlsx");
             string[] obj = new string[100];
             for (int cnt = 0; cnt < obj.Length; cnt++) obj[cnt] = "testStr_" + cnt;
             obj[0] = "test_descriptions";
@@ -85,7 +85,7 @@ Zusatzangabe;00;").Trim();
         [TestMethod]
         public void DoublePump()
         {
-            DataSheetCreator dataSheetCreator = new DataSheetCreator();
+            DataSheetCreator dataSheetCreator = new DataSheetCreator(@"C:\Users\mariu\OneDrive\Documents\Kennliste2.xlsx");
             string[] obj = new string[100];
             for (int cnt = 0; cnt < obj.Length; cnt++) obj[cnt] = "testStr_" + cnt;
             obj[0] = "test_double";

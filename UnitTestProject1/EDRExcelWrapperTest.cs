@@ -12,7 +12,7 @@ namespace UnitTestProject1
         {
             // ssl_marius
             // 789Marius987.-
-            var excelWrapper = new EDRExcelWrapper();
+            var excelWrapper = new EDRExcelWrapper(@"C:\Users\mariu\OneDrive\Documents\Kennliste2.xlsx");
             string[] obj = excelWrapper.GetCol(2);
             Assert.AreEqual(obj[2].Trim(), "LP FY 20");
             Assert.AreEqual(obj[7].Trim(), "Pump ID");

@@ -8,14 +8,10 @@ namespace ExcelSearchBox
 {
     public class EDRExcelWrapper : ExcelWrapper
     {
-        private string filename = @"C:\Users\mariu\OneDrive\Documents\Kennliste2.xlsx";
+        private string filename;
         private int colCount;
         private int rowCount;
 
-        public EDRExcelWrapper()
-        {
-            CalcTableSize();
-        }
         public EDRExcelWrapper(string str)
         {
             filename = str;

@@ -25,9 +25,6 @@ namespace ExcelSearchBox
                     excelWrapper = new EDRExcelWrapper(Settings.Default.sourceFile);
                 else
                 {
-#if DEBUG
-                    excelWrapper = new EDRExcelWrapper();
-#endif
                     MessageBox.Show("Die Quelldatei ist ungültig (\"" + Settings.Default.sourceFile + "\"). Bitte andere Datei einstellen.");
                 }
                 if (excelWrapper != null)
@@ -133,8 +130,7 @@ namespace ExcelSearchBox
             if (excelWrapper == null) return;
             try
             {
-                DataSheetCreator dataSheetCreator = new DataSheetCreator();
-                dataSheetCreator.SetFilename(excelWrapper.GetFilename());
+                DataSheetCreator dataSheetCreator = new DataSheetCreator(excelWrapper.GetFilename());
                 string content = dataSheetCreator.CreateDataSheet(itemList[listSearchResults.SelectedIndex]);
                 this.saveFileDialog1.DefaultExt = ".csv";
                 this.saveFileDialog1.FileName = itemList[listSearchResults.SelectedIndex][1];

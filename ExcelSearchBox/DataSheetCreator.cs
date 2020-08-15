@@ -11,11 +11,12 @@ namespace ExcelSearchBox
 {
     public class DataSheetCreator
     {
-        private string filename = @"C:\Users\mariu\OneDrive\Documents\Kennliste2.xlsx";
+        private string filename;
         Dictionary<string, string>[] descDict;
         string[] propertys;
-        public DataSheetCreator()
+        public DataSheetCreator(string filename)
         {
+            this.filename = filename;
             descDict = new Dictionary<string, string>[13];
             for (int cnt = 0; cnt < descDict.Length; cnt++) descDict[cnt] = new Dictionary<string, string>();
             propertys = new string[13];

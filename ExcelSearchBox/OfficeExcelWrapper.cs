@@ -10,17 +10,12 @@ namespace ExcelSearchBox
 {
     public class OfficeExcelWrapper : ExcelWrapper
     {
-        private string filename = @"C:\Users\mariu\OneDrive\Documents\Kennliste.xlsx";
+        private string filename;
         private bool isFileInUse = false;
         private Microsoft.Office.Interop.Excel.Application xlApp;
         private Workbook xlWorkbook;
         private dynamic xlWorksheet;
         private Range xlRange;
-
-        public OfficeExcelWrapper()
-        {
-            OpenFile();
-        }
 
         public OfficeExcelWrapper(string sourceFile)
         {
