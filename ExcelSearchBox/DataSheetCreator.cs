@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ExcelSearchBox
 {
@@ -61,23 +62,10 @@ namespace ExcelSearchBox
                             if (!string.IsNullOrWhiteSpace(row[1].ToString()))
                             {
 
-                                // todo for 12
-
                                 if (descDict[key].ContainsKey(row[1].ToString()))
                                 {
-#if DEBUG
-                                    Console.WriteLine(row[1].ToString());
-                                    Console.WriteLine(row[2].ToString());
-                                    Console.WriteLine(descDict[key][row[1].ToString()]);
-                                    Console.WriteLine();
-#endif
-#if !DEBUG
-                                    continue;
-#endif
+                                    throw new Exception("double entrys in description at key " + key + " with value " + row[1].ToString());
                                 }
-
-
-                                // todo for 12
 
                                 switch (key)
                                 {
