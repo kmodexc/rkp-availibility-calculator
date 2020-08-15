@@ -116,7 +116,7 @@ namespace ExcelSearchBox
 
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Uri.IsWellFormedUriString(textBoxSearchString.Text, UriKind.Absolute))
+            if (Uri.IsWellFormedUriString(textBoxSourceFile.Text, UriKind.Absolute))
             {
                 if (excelWrapper == null || excelWrapper.GetFilename() != textBoxSourceFile.Text)
                 {
