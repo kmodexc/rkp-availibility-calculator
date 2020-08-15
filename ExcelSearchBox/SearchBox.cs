@@ -21,10 +21,8 @@ namespace ExcelSearchBox
         {
             try
             {
-                if (Uri.IsWellFormedUriString(Settings.Default.sourceFile, UriKind.Absolute))
-                {
+                if (File.Exists(Settings.Default.sourceFile))
                     excelWrapper = new EDRExcelWrapper(Settings.Default.sourceFile);
-                }
                 else
                 {
 #if DEBUG
@@ -116,14 +114,12 @@ namespace ExcelSearchBox
 
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Uri.IsWellFormedUriString(textBoxSourceFile.Text, UriKind.Absolute))
+            if (excelWrapper == null || excelWrapper.GetFilename() != textBoxSourceFile.Text)
             {
-                if (excelWrapper == null || excelWrapper.GetFilename() != textBoxSourceFile.Text)
-                {
-                    Settings.Default.sourceFile = textBoxSourceFile.Text;
-                    Settings.Default.Save();
-                    LoadExcelWrapper();
-                }
+                Settings.Default.sourceFile = textBoxSourceFile.Text;
+                Settings.Default.Save();
+                Settings.Default.Upgrade();
+                LoadExcelWrapper();
             }
         }
 
