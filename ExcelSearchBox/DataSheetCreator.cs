@@ -129,7 +129,6 @@ namespace ExcelSearchBox
                 csv.AppendLine(propertys[dictIndex] + ';' + obj[objIndex] + ';' + keyValue);
             }
             return csv.ToString();
-            //File.WriteAllText(obj[1] + ".csv", csv.ToString(), Encoding.UTF8);
         }
     }
 }

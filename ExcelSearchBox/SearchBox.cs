@@ -113,10 +113,12 @@ namespace ExcelSearchBox
         {
             if (excelWrapper == null || excelWrapper.GetFilename() != textBoxSourceFile.Text)
             {
+                Cursor.Current = Cursors.WaitCursor;
                 Settings.Default.sourceFile = textBoxSourceFile.Text;
                 Settings.Default.Save();
                 Settings.Default.Upgrade();
                 LoadExcelWrapper();
+                Cursor.Current = Cursors.Default;
             }
         }
 
@@ -130,6 +132,7 @@ namespace ExcelSearchBox
             if (excelWrapper == null) return;
             try
             {
+                Cursor.Current = Cursors.WaitCursor;
                 DataSheetCreator dataSheetCreator = new DataSheetCreator(excelWrapper.GetFilename());
                 string content = dataSheetCreator.CreateDataSheet(itemList[listSearchResults.SelectedIndex]);
                 this.saveFileDialog1.DefaultExt = ".csv";
@@ -137,6 +140,7 @@ namespace ExcelSearchBox
                 this.saveFileDialog1.AddExtension = true;
                 this.saveFileDialog1.CheckPathExists = true;
                 this.saveFileDialog1.Filter = "CSV Dateien | *.csv";
+                Cursor.Current = Cursors.Default;
                 if (this.saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     File.WriteAllText(this.saveFileDialog1.FileName, content);
