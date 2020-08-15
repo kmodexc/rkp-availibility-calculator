@@ -79,7 +79,7 @@ namespace ExcelSearchBox
                 }
             }
         }
-        public void CreateDataSheet(string[] obj)
+        public string CreateDataSheet(string[] obj)
         {
             var csv = new StringBuilder();
             csv.AppendLine("Pumpennummer:;" + obj[0]);
@@ -125,7 +125,8 @@ namespace ExcelSearchBox
 
                 csv.AppendLine(propertys[dictIndex] + ';' + obj[objIndex] + ';' + keyValue);
             }
-            File.WriteAllText(obj[1] + ".csv", csv.ToString(), Encoding.UTF8);
+            return csv.ToString();
+            //File.WriteAllText(obj[1] + ".csv", csv.ToString(), Encoding.UTF8);
         }
     }
 }

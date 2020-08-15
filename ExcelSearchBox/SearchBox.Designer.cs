@@ -42,13 +42,14 @@
             this.columnPropertyName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnPropertyValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonDatasheet = new System.Windows.Forms.Button();
             this.labelTypeCode = new System.Windows.Forms.Label();
             this.labelDetailName = new System.Windows.Forms.Label();
             this.tabSettings = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxSourceFile = new System.Windows.Forms.TextBox();
-            this.buttonDatasheet = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.tabControl.SuspendLayout();
             this.tabSearch.SuspendLayout();
             this.groupSearchResults.SuspendLayout();
@@ -200,6 +201,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Übersicht";
             // 
+            // buttonDatasheet
+            // 
+            this.buttonDatasheet.Location = new System.Drawing.Point(1053, 57);
+            this.buttonDatasheet.Name = "buttonDatasheet";
+            this.buttonDatasheet.Size = new System.Drawing.Size(145, 41);
+            this.buttonDatasheet.TabIndex = 2;
+            this.buttonDatasheet.Text = "Datenblatt";
+            this.buttonDatasheet.UseVisualStyleBackColor = true;
+            this.buttonDatasheet.Click += new System.EventHandler(this.buttonDatasheet_Click);
+            // 
             // labelTypeCode
             // 
             this.labelTypeCode.AutoSize = true;
@@ -256,16 +267,6 @@
             this.textBoxSourceFile.Size = new System.Drawing.Size(862, 31);
             this.textBoxSourceFile.TabIndex = 0;
             // 
-            // buttonDatasheet
-            // 
-            this.buttonDatasheet.Location = new System.Drawing.Point(1053, 57);
-            this.buttonDatasheet.Name = "buttonDatasheet";
-            this.buttonDatasheet.Size = new System.Drawing.Size(145, 41);
-            this.buttonDatasheet.TabIndex = 2;
-            this.buttonDatasheet.Text = "Datenblatt";
-            this.buttonDatasheet.UseVisualStyleBackColor = true;
-            this.buttonDatasheet.Click += new System.EventHandler(this.buttonDatasheet_Click);
-            // 
             // SearchBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -317,6 +318,7 @@
         private System.Windows.Forms.ColumnHeader columnPropertyValue;
         private System.Windows.Forms.Label labelTypeCode;
         private System.Windows.Forms.Button buttonDatasheet;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 

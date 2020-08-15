@@ -37,9 +37,7 @@ namespace UnitTestProject1
             obj[17] = "Z";
             obj[18] = "00";
             obj[19] = "";
-            dataSheetCreator.CreateDataSheet(obj);
-            string content = File.ReadAllText("test_descriptions.csv");
-
+            string content = dataSheetCreator.CreateDataSheet(obj);
 
 
             var str1 = content.Trim();
@@ -114,8 +112,7 @@ Zusatzangabe;00;").Trim();
             obj[26] = "00";
             obj[27] = "";
 
-            dataSheetCreator.CreateDataSheet(obj);
-            string content = File.ReadAllText("test_double.csv");
+            string content = dataSheetCreator.CreateDataSheet(obj);
 
 
 

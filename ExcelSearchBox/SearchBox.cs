@@ -126,9 +126,18 @@ namespace ExcelSearchBox
             try
             {
                 DataSheetCreator dataSheetCreator = new DataSheetCreator();
-                dataSheetCreator.CreateDataSheet(itemList[listSearchResults.SelectedIndex]);
+                string content = dataSheetCreator.CreateDataSheet(itemList[listSearchResults.SelectedIndex]);
+                this.saveFileDialog1.DefaultExt = ".csv";
+                this.saveFileDialog1.FileName = itemList[listSearchResults.SelectedIndex][1];
+                this.saveFileDialog1.AddExtension = true;
+                this.saveFileDialog1.CheckPathExists = true;
+                this.saveFileDialog1.Filter = "CSV Dateien | *.csv";
+                if (this.saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    File.WriteAllText(this.saveFileDialog1.FileName, content);
+                }
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 MessageBox.Show(exc.ToString());
             }            
