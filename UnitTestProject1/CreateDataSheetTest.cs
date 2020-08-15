@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace UnitTestProject1
 {
     [TestClass]
-    public class CreateDataSheet
+    public class CreateDataSheetTest
     {
         [TestMethod]
         public void CreateDataSheet_NoException()
