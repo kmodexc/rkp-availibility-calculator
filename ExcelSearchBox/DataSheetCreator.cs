@@ -44,6 +44,7 @@ namespace ExcelSearchBox
                         throw new Exception("wrong table");
                     }
                     int key = -1;
+                    string subtype = "";
                     foreach (DataRow row in table.Rows)
                     {
                         string val = (row[0]).ToString();
@@ -52,6 +53,7 @@ namespace ExcelSearchBox
                         {
                             key = num;
                             propertys[key] = row[2].ToString();
+                            subtype = "";
                         }
                         else if (val.StartsWith("-"))
                         {
@@ -61,8 +63,9 @@ namespace ExcelSearchBox
                         {
                             if (!string.IsNullOrWhiteSpace(row[1].ToString()))
                             {
+                                string key_name = subtype + row[1].ToString();
 
-                                if (descDict[key].ContainsKey(row[1].ToString()))
+                                if (descDict[key].ContainsKey(key_name))
                                 {
                                     throw new Exception("double entrys in description at key " + key + " with value " + row[1].ToString());
                                 }
@@ -70,10 +73,77 @@ namespace ExcelSearchBox
                                 switch (key)
                                 {
                                     case 3:
-                                    case 12:
                                         break;
                                     default:
-                                        descDict[key].Add(row[1].ToString(), row[2].ToString());
+                                        descDict[key].Add(key_name, row[2].ToString());
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                // subtype description
+                                string potential_subkey = row[2].ToString().Trim();
+                                switch (key)
+                                {
+                                    case 6:
+                                        if (potential_subkey.Contains("ZFL, ZFS, ZFG"))
+                                        {
+                                            subtype = "Z_";
+                                        }
+                                        else if (potential_subkey.Contains("AZP"))
+                                        {
+                                            subtype = "AZP_";
+                                        }
+                                        break;
+                                    case 7:
+                                        if (potential_subkey.Contains("Pumpengröße 5-31cm3"))
+                                        {
+                                            subtype = "ZA_";
+                                        }
+                                        else if (potential_subkey.Contains("Pumpengröße 32-50cm3"))
+                                        {
+                                            subtype = "ZB_";
+                                        }
+                                        else if (potential_subkey.Contains("Pumpengröße 19cm3"))
+                                        {
+                                            subtype = "019_";
+                                        }
+                                        else if (potential_subkey.Contains("Pumpengröße 32-45cm3"))
+                                        {
+                                            subtype = "032_";
+                                        }
+                                        else if (potential_subkey.Contains("Pumpengröße 63cm3"))
+                                        {
+                                            subtype = "063_";
+                                        }
+                                        else if (potential_subkey.Contains("Pumpengröße 80cm3"))
+                                        {
+                                            subtype = "080_";
+                                        }
+                                        else if (potential_subkey.Contains("Pumpengröße 100cm3"))
+                                        {
+                                            subtype = "100_";
+                                        }
+                                        else if (potential_subkey.Contains("Pumpengröße 140cm3"))
+                                        {
+                                            subtype = "140_";
+                                        }
+                                        break;
+                                    case 12:
+                                        if (potential_subkey.Contains("Leistungsregler S1, S2, S3"))
+                                        {
+                                            subtype = "S_";
+                                        }
+                                        else if (potential_subkey.Contains("Digitalregler D1…D8"))
+                                        {
+                                            subtype = "D_";
+                                        }
+                                        else if (potential_subkey.Contains("Doppelzahnradpumpe"))
+                                        {
+                                            subtype = "Z_";
+                                        }
+                                        break;
+                                    default:
                                         break;
                                 }
                             }
@@ -95,9 +165,9 @@ namespace ExcelSearchBox
                 {
                     dictIndex = ((cnt - 12) % 8) + 5;
 
-                    // no more modules (double pump)
                     if (dictIndex == 5)
                     {
+                        // no more modules (double pump)
                         if (string.IsNullOrWhiteSpace(obj[objIndex]))
                             break;
                         else
@@ -107,16 +177,99 @@ namespace ExcelSearchBox
                         }
                     }
                 }
-                string keyValue = (descDict[dictIndex].ContainsKey(obj[objIndex]) ? descDict[dictIndex][obj[objIndex]] : "");
+
+                string subtypekey = "";
+
+                // get subtypes for cases 6,7,12
+                switch (dictIndex)
+                {
+                    case 6:
+                        if (obj[objIndex - 1] == "RKP")
+                        {
+
+                        }
+                        else if (obj[objIndex - 1].StartsWith("Z"))
+                        {
+                            subtypekey = "Z_";
+                        }
+                        else if (obj[objIndex - 1] == "AZP")
+                        {
+                            subtypekey = "AZP_";
+                        }
+                        break;
+                    case 7:
+                        int pumpsize = -1;
+                        if(!int.TryParse(obj[objIndex-1],out pumpsize)){
+                            throw new Exception("pumpsize is not valid <" + obj[objIndex - 1] + "> at key position <" + (objIndex - 1) + ">");
+                        }
+                        if (obj[objIndex - 2] == "RKP" || obj[objIndex - 2] == "FRP")
+                        {
+                            if (pumpsize <= 19)
+                            {
+                                subtypekey = "019_";
+                            }
+                            else if (pumpsize > 19 && pumpsize <= 45)
+                            {
+                                subtypekey = "032_";
+                            }
+                            else if (pumpsize > 45 && pumpsize <= 63)
+                            {
+                                subtypekey = "063_";
+                            }
+                            else if (pumpsize > 63 && pumpsize <= 80)
+                            {
+                                subtypekey = "080_";
+                            }
+                            else if (pumpsize > 80 && pumpsize <= 100)
+                            {
+                                subtypekey = "100_";
+                            }
+                            else if (pumpsize > 100)
+                            {
+                                subtypekey = "140_";
+                            }
+                        }else if(obj[objIndex - 2] == "AZP")
+                        {
+                            if (pumpsize < 32)
+                            {
+                                subtypekey = "ZA_";
+                            }
+                            else if (pumpsize >= 32)
+                            {
+                                subtypekey = "ZB_";
+                            }
+                        }
+                        break;
+                    case 12:
+                        if (obj[objIndex - 2].StartsWith("S") || obj[objIndex-2] == "ZK")
+                        {
+                            subtypekey = "S_";
+                        }
+                        else if (obj[objIndex - 2].StartsWith("D"))
+                        {
+                            subtypekey = "D_";
+                        }
+                        else if (obj[objIndex - 7] == "AZP" || obj[objIndex-7].StartsWith("Z"))
+                        {
+                            subtypekey = "Z_";
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+                string fulldictKey = subtypekey + obj[objIndex];
+                string keyValue = (descDict[dictIndex].ContainsKey(fulldictKey) ? descDict[dictIndex][fulldictKey] : "");
                 // rpm case
                 if (dictIndex == 3)
                 {
                     keyValue = "n = " + obj[objIndex] + "00 min-1";
                 }
 
-                keyValue = keyValue.Replace('\n', '\t');
-                keyValue = keyValue.Replace('\r', '\t');
-                keyValue = keyValue.Replace(';', ' ');
+                // csv restricted characters
+                keyValue = keyValue.Replace('\n', ',');
+                keyValue = keyValue.Replace('\r', ',');
+                keyValue = keyValue.Replace(';', ',');
 
                 // todo
 
