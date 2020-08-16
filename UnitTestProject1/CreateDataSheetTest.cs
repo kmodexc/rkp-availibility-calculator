@@ -50,7 +50,7 @@ Drehrichtung;L;Auf Antrieb gesehen „links”
 Drehzahl;14;n = 1400 min-1
 Welle und Antriebsflansch;B3;unsinnige Kombination aus metrischer Welle B und SAE-Flansch 3
 Pumpenart ;RKP;Radialkolbenpumpe verstellbar, offene Kreis
-Fördervolumen RKP;032;32 cm3/U
+Fördervolumen;032;32 cm3/U
 Pumpenanschlüsse;H;Saug- und Druckanschluss gleich, SAE 1# 6000 psi (ISO 6162-2), Hochdruckreihe bis 350 bar,mit metrischem Gewinde M12, 21mm tief.
 Betriebsflüssigkeit;C;HFC (Wasserglycol)
 max. Betriebsdruck;35;350 bar für Mineralöl- , HFD- und Skydrol-Pumpen
@@ -126,7 +126,7 @@ Drehrichtung;L;Auf Antrieb gesehen „links”
 Drehzahl;14;n = 1400 min-1
 Welle und Antriebsflansch;B3;unsinnige Kombination aus metrischer Welle B und SAE-Flansch 3
 Pumpenart ;RKP;Radialkolbenpumpe verstellbar, offene Kreis
-Fördervolumen RKP;032;32 cm3/U
+Fördervolumen;032;32 cm3/U
 Pumpenanschlüsse;H;Saug- und Druckanschluss gleich, SAE 1# 6000 psi (ISO 6162-2), Hochdruckreihe bis 350 bar,mit metrischem Gewinde M12, 21mm tief.
 Betriebsflüssigkeit;C;HFC (Wasserglycol)
 max. Betriebsdruck;35;350 bar für Mineralöl- , HFD- und Skydrol-Pumpen
@@ -135,13 +135,13 @@ Zusatzeinrichtung;Z;ohne Zusatzeinrichtung
 Zusatzangabe;00;Ausgangssignal für Druck und Fördermenge 4…20mA
 Pumpenstufe 2
 Pumpenart ;RKP;Radialkolbenpumpe verstellbar, offene Kreis
-Fördervolumen RKP;032;32 cm3/U
+Fördervolumen;032;32 cm3/U
 Pumpenanschlüsse;K;RKP II: Sauganschluß SAE 1 1/2# 3000 psi (ISO 6162-1),mit metrischen Gewinden M12, 24mm tief., Druckanschluß SAE 1# 3000 psi (ISO 6162-1),mit metrischen Gewinden M10, 16mm tief.
 Betriebsflüssigkeit;M;Mineralöl, Getriebeöl, biologisch abbaubares Öl
 max. Betriebsdruck;28;280 bar für Mineralöl-, HFD-, Polyol- und Isozyanat-Pumpen
 Steuerung/Regler;E2;Elektrohydraulische Verstellung EHV 2 (Moog Ventil),mit Fremddruckversorgung (Nur als Ersatz für T2)
 Zusatzeinrichtung;Z;ohne Zusatzeinrichtung
-Zusatzangabe;00;").Replace('#','"').Trim();
+Zusatzangabe;00;keine").Replace('#','"').Trim();
 
 
             if (str1.Length != str2.Length)
@@ -201,7 +201,7 @@ Drehrichtung;L;Auf Antrieb gesehen „links”
 Drehzahl;14;n = 1400 min-1
 Welle und Antriebsflansch;B3;unsinnige Kombination aus metrischer Welle B und SAE-Flansch 3
 Pumpenart ;RKP;Radialkolbenpumpe verstellbar, offene Kreis
-Fördervolumen RKP;032;32 cm3/U
+Fördervolumen;032;32 cm3/U
 Pumpenanschlüsse;H;Saug- und Druckanschluss gleich, SAE 1# 6000 psi (ISO 6162-2), Hochdruckreihe bis 350 bar,mit metrischem Gewinde M12, 21mm tief.
 Betriebsflüssigkeit;C;HFC (Wasserglycol)
 max. Betriebsdruck;35;350 bar für Mineralöl- , HFD- und Skydrol-Pumpen
@@ -266,7 +266,7 @@ Drehrichtung;L;Auf Antrieb gesehen „links”
 Drehzahl;14;n = 1400 min-1
 Welle und Antriebsflansch;B3;unsinnige Kombination aus metrischer Welle B und SAE-Flansch 3
 Pumpenart ;RKP;Radialkolbenpumpe verstellbar, offene Kreis
-Fördervolumen RKP;032;32 cm3/U
+Fördervolumen;032;32 cm3/U
 Pumpenanschlüsse;H;Saug- und Druckanschluss gleich, SAE 1# 6000 psi (ISO 6162-2), Hochdruckreihe bis 350 bar,mit metrischem Gewinde M12, 21mm tief.
 Betriebsflüssigkeit;C;HFC (Wasserglycol)
 max. Betriebsdruck;35;350 bar für Mineralöl- , HFD- und Skydrol-Pumpen
@@ -331,7 +331,7 @@ Drehrichtung;L;Auf Antrieb gesehen „links”
 Drehzahl;14;n = 1400 min-1
 Welle und Antriebsflansch;B3;unsinnige Kombination aus metrischer Welle B und SAE-Flansch 3
 Pumpenart ;RKP;Radialkolbenpumpe verstellbar, offene Kreis
-Fördervolumen RKP;032;32 cm3/U
+Fördervolumen;032;32 cm3/U
 Pumpenanschlüsse;H;Saug- und Druckanschluss gleich, SAE 1# 6000 psi (ISO 6162-2), Hochdruckreihe bis 350 bar,mit metrischem Gewinde M12, 21mm tief.
 Betriebsflüssigkeit;C;HFC (Wasserglycol)
 max. Betriebsdruck;35;350 bar für Mineralöl- , HFD- und Skydrol-Pumpen
@@ -396,7 +396,7 @@ Drehrichtung;L;Auf Antrieb gesehen „links”
 Drehzahl;14;n = 1400 min-1
 Welle und Antriebsflansch;B3;unsinnige Kombination aus metrischer Welle B und SAE-Flansch 3
 Pumpenart ;RKP;Radialkolbenpumpe verstellbar, offene Kreis
-Fördervolumen RKP;019;19 cm3/U
+Fördervolumen;019;19 cm3/U
 Pumpenanschlüsse;H;Saug- und Druckanschluss gleich, SAE 3/4# 6000 psi (ISO 6162-2) Hochdruckreihe bis 350 bar,mit metrischen Gewinden M10, 16mm tief.
 Betriebsflüssigkeit;C;HFC (Wasserglycol)
 max. Betriebsdruck;35;350 bar für Mineralöl- , HFD- und Skydrol-Pumpen
@@ -461,7 +461,7 @@ Drehrichtung;L;Auf Antrieb gesehen „links”
 Drehzahl;14;n = 1400 min-1
 Welle und Antriebsflansch;B3;unsinnige Kombination aus metrischer Welle B und SAE-Flansch 3
 Pumpenart ;RKP;Radialkolbenpumpe verstellbar, offene Kreis
-Fördervolumen RKP;032;32 cm3/U
+Fördervolumen;032;32 cm3/U
 Pumpenanschlüsse;K;RKP II: Sauganschluß SAE 1 1/2# 3000 psi (ISO 6162-1),mit metrischen Gewinden M12, 24mm tief., Druckanschluß SAE 1# 3000 psi (ISO 6162-1),mit metrischen Gewinden M10, 16mm tief.
 Betriebsflüssigkeit;C;HFC (Wasserglycol)
 max. Betriebsdruck;35;350 bar für Mineralöl- , HFD- und Skydrol-Pumpen
@@ -526,7 +526,7 @@ Drehrichtung;L;Auf Antrieb gesehen „links”
 Drehzahl;14;n = 1400 min-1
 Welle und Antriebsflansch;B3;unsinnige Kombination aus metrischer Welle B und SAE-Flansch 3
 Pumpenart ;RKP;Radialkolbenpumpe verstellbar, offene Kreis
-Fördervolumen RKP;063;63 cm3/U
+Fördervolumen;063;63 cm3/U
 Pumpenanschlüsse;H;Saug- und Druckanschluss gleich, SAE 1 1/4# 6000 psi (ISO 6162-2) Hochdruckreihe bis 350 bar,mit metrischen Gewinden M14, 24mm tief.
 Betriebsflüssigkeit;C;HFC (Wasserglycol)
 max. Betriebsdruck;35;350 bar für Mineralöl- , HFD- und Skydrol-Pumpen
@@ -591,7 +591,7 @@ Drehrichtung;L;Auf Antrieb gesehen „links”
 Drehzahl;14;n = 1400 min-1
 Welle und Antriebsflansch;B3;unsinnige Kombination aus metrischer Welle B und SAE-Flansch 3
 Pumpenart ;RKP;Radialkolbenpumpe verstellbar, offene Kreis
-Fördervolumen RKP;080;80 cm3/U
+Fördervolumen;080;80 cm3/U
 Pumpenanschlüsse;T;RKP II: Sauganschluß SAE 2# 3000 psi (ISO 6162-1),mit metrischen Gewinden M12, 22mm tief., Druckanschluß SAE 1 1/4# 6000 psi (ISO 6162-1),mit metrischen Gewinden M14, 24mm tief.
 Betriebsflüssigkeit;C;HFC (Wasserglycol)
 max. Betriebsdruck;35;350 bar für Mineralöl- , HFD- und Skydrol-Pumpen
@@ -656,7 +656,7 @@ Drehrichtung;L;Auf Antrieb gesehen „links”
 Drehzahl;14;n = 1400 min-1
 Welle und Antriebsflansch;B3;unsinnige Kombination aus metrischer Welle B und SAE-Flansch 3
 Pumpenart ;RKP;Radialkolbenpumpe verstellbar, offene Kreis
-Fördervolumen RKP;100;100 cm3/U
+Fördervolumen;100;100 cm3/U
 Pumpenanschlüsse;L;Sauganschluß SAE 1 1/2# 3000 psi (ISO 6162-1),mit metrischen Gewinden M12, 24mm tief., Druckanschluß SAE 1 1/4# 6000 psi (ISO 6162-1),mit metrischen Gewinden M14, 24mm tief.
 Betriebsflüssigkeit;C;HFC (Wasserglycol)
 max. Betriebsdruck;35;350 bar für Mineralöl- , HFD- und Skydrol-Pumpen
@@ -721,7 +721,7 @@ Drehrichtung;L;Auf Antrieb gesehen „links”
 Drehzahl;14;n = 1400 min-1
 Welle und Antriebsflansch;B3;unsinnige Kombination aus metrischer Welle B und SAE-Flansch 3
 Pumpenart ;RKP;Radialkolbenpumpe verstellbar, offene Kreis
-Fördervolumen RKP;140;140 cm3/U
+Fördervolumen;140;140 cm3/U
 Pumpenanschlüsse;T;RKP II: Sauganschluß SAE 2 1/2# 3000 psi (ISO 6162-1),mit metrischen Gewinden M12, 22mm tief., Druckanschluß SAE 1 1/2# 6000 psi (ISO 6162-1),mit metrischen Gewinden M16, 25mm tief.
 Betriebsflüssigkeit;C;HFC (Wasserglycol)
 max. Betriebsdruck;35;350 bar für Mineralöl- , HFD- und Skydrol-Pumpen
@@ -787,7 +787,7 @@ Drehrichtung;L;Auf Antrieb gesehen „links”
 Drehzahl;14;n = 1400 min-1
 Welle und Antriebsflansch;B3;unsinnige Kombination aus metrischer Welle B und SAE-Flansch 3
 Pumpenart ;AZP;Moog Außenzahnradpumpe ,mit Flansch SAE-A und SAE-B
-Fördervolumen RKP;031;31 cm³/U   SAE-A
+Fördervolumen;031;31 cm³/U   SAE-A
 Pumpenanschlüsse;R;Deutscher 4-Loch-Flansch SAE-A,Sauganschluss M6, Lochdurchmesser 40mm,Druckanschluss M6, Lochdurchmesser 35mm
 Betriebsflüssigkeit;C;HFC (Wasserglycol)
 max. Betriebsdruck;35;350 bar für Mineralöl- , HFD- und Skydrol-Pumpen
@@ -852,7 +852,7 @@ Drehrichtung;L;Auf Antrieb gesehen „links”
 Drehzahl;14;n = 1400 min-1
 Welle und Antriebsflansch;B3;unsinnige Kombination aus metrischer Welle B und SAE-Flansch 3
 Pumpenart ;AZP;Moog Außenzahnradpumpe ,mit Flansch SAE-A und SAE-B
-Fördervolumen RKP;033;33 cm³/U   SAE-B
+Fördervolumen;033;33 cm³/U   SAE-B
 Pumpenanschlüsse;R;Deutscher 4-Loch-Flansch SAE-B,Sauganschluss M8, Lochdurchmesser 55mm,Druckanschluss M8, Lochdurchmesser 55mm
 Betriebsflüssigkeit;C;HFC (Wasserglycol)
 max. Betriebsdruck;35;350 bar für Mineralöl- , HFD- und Skydrol-Pumpen
@@ -917,7 +917,7 @@ Drehrichtung;L;Auf Antrieb gesehen „links”
 Drehzahl;14;n = 1400 min-1
 Welle und Antriebsflansch;B3;unsinnige Kombination aus metrischer Welle B und SAE-Flansch 3
 Pumpenart ;AZP;Moog Außenzahnradpumpe ,mit Flansch SAE-A und SAE-B
-Fördervolumen RKP;033;33 cm³/U   SAE-B
+Fördervolumen;033;33 cm³/U   SAE-B
 Pumpenanschlüsse;H;
 Betriebsflüssigkeit;C;HFC (Wasserglycol)
 max. Betriebsdruck;35;350 bar für Mineralöl- , HFD- und Skydrol-Pumpen
@@ -949,6 +949,73 @@ Zusatzangabe;00;Ausgangssignal für Druck und Fördermenge 4…20mA").Replace('#
 
             Assert.AreEqual(content.Trim(), str2);
         }
+
+        [TestMethod]
+        public void Position_12_NoInfo()
+        {
+            DataSheetCreator dataSheetCreator = new DataSheetCreator(@"C:\Users\mariu\OneDrive\Documents\Kennliste2.xlsx");
+            string[] obj = new string[100];
+            for (int cnt = 0; cnt < obj.Length; cnt++) obj[cnt] = "testStr_" + cnt;
+            obj[0] = "Position_12_NoInfo";
+            obj[1] = "Position_12_NoInfo";
+            obj[7] = "HK";
+            obj[8] = "L";
+            obj[9] = "14";
+            obj[10] = "B3";
+            obj[11] = "RKP";
+            obj[12] = "032";
+            obj[13] = "H";
+            obj[14] = "C";
+            obj[15] = "35";
+            obj[16] = "A1";
+            obj[17] = "Z";
+            obj[18] = "00";
+            obj[19] = "";
+
+            string content = dataSheetCreator.CreateDataSheet(obj);
+
+            var str1 = content.Trim();
+            var str2 = (@"Pumpennummer:;Position_12_NoInfo
+Pumpenschlüssel:;Position_12_NoInfo
+Typ;HK;Explosionsgeschützte Pumpe Gas und Staub
+Drehrichtung;L;Auf Antrieb gesehen „links”
+Drehzahl;14;n = 1400 min-1
+Welle und Antriebsflansch;B3;unsinnige Kombination aus metrischer Welle B und SAE-Flansch 3
+Pumpenart ;RKP;Radialkolbenpumpe verstellbar, offene Kreis
+Fördervolumen;032;32 cm3/U
+Pumpenanschlüsse;H;Saug- und Druckanschluss gleich, SAE 1# 6000 psi (ISO 6162-2), Hochdruckreihe bis 350 bar,mit metrischem Gewinde M12, 21mm tief.
+Betriebsflüssigkeit;C;HFC (Wasserglycol)
+max. Betriebsdruck;35;350 bar für Mineralöl- , HFD- und Skydrol-Pumpen
+Steuerung/Regler;A1;Handrad für Hubeinstellung
+Zusatzeinrichtung;Z;ohne Zusatzeinrichtung
+Zusatzangabe;00;keine").Replace('#', '"').Trim();
+
+
+            if (str1.Length != str2.Length)
+            {
+                Console.WriteLine("Length diff");
+            }
+            string line1 = "";
+            string line2 = "";
+            for (int cnt = 0; cnt < str1.Length && cnt < str2.Length; cnt++)
+            {
+                if (str2[cnt] == '\n' && str1[cnt] == '\n')
+                {
+                    line1 = "";
+                    line2 = "";
+                }
+                else
+                {
+                    line1 += str1[cnt];
+                    line2 += str2[cnt];
+                }
+                Assert.AreEqual(str1[cnt], str2[cnt], "diffrence at pos " + cnt + " <expected line:\"" + line2 + "\"> <actual line:\"" + line1 + "\">");
+            }
+
+            Assert.AreEqual(content.Trim(), str2);
+        }
+
+
 
     }
 }

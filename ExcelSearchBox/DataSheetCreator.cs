@@ -265,19 +265,15 @@ namespace ExcelSearchBox
                 {
                     keyValue = "n = " + obj[objIndex] + "00 min-1";
                 }
+                if(dictIndex == 12 && string.IsNullOrWhiteSpace(keyValue))
+                {
+                    keyValue = "keine";
+                }
 
                 // csv restricted characters
                 keyValue = keyValue.Replace('\n', ',');
                 keyValue = keyValue.Replace('\r', ',');
                 keyValue = keyValue.Replace(';', ',');
-
-                // todo
-
-                if (string.IsNullOrWhiteSpace(keyValue) && !string.IsNullOrWhiteSpace(obj[objIndex]))
-                {
-                    Console.WriteLine(keyValue + "\t" + obj[objIndex]);
-                }
-
 
                 csv.AppendLine(propertys[dictIndex] + ';' + obj[objIndex] + ';' + keyValue);
             }
