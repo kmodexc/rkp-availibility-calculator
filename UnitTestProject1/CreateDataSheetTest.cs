@@ -788,7 +788,7 @@ Drehzahl;14;n = 1400 min-1
 Welle und Antriebsflansch;B3;unsinnige Kombination aus metrischer Welle B und SAE-Flansch 3
 Pumpenart ;AZP;Moog Außenzahnradpumpe ,mit Flansch SAE-A und SAE-B
 Fördervolumen;031;31 cm³/U   SAE-A
-Pumpenanschlüsse;R;Deutscher 4-Loch-Flansch SAE-A,Sauganschluss M6, Lochdurchmesser 40mm,Druckanschluss M6, Lochdurchmesser 35mm
+Pumpenanschlüsse;R;Deutscher 4-Loch-Flansch SAE-A,Sauganschluss M6: Lochkreisdurchmesser 40mm,Druckanschluss M6: Lochkreisdurchmesser 35mm
 Betriebsflüssigkeit;C;HFC (Wasserglycol)
 max. Betriebsdruck;35;350 bar für Mineralöl- , HFD- und Skydrol-Pumpen
 Steuerung/Regler;D1;RKP-D mit Eigendruckversorgung
@@ -853,7 +853,7 @@ Drehzahl;14;n = 1400 min-1
 Welle und Antriebsflansch;B3;unsinnige Kombination aus metrischer Welle B und SAE-Flansch 3
 Pumpenart ;AZP;Moog Außenzahnradpumpe ,mit Flansch SAE-A und SAE-B
 Fördervolumen;033;33 cm³/U   SAE-B
-Pumpenanschlüsse;R;Deutscher 4-Loch-Flansch SAE-B,Sauganschluss M8, Lochdurchmesser 55mm,Druckanschluss M8, Lochdurchmesser 55mm
+Pumpenanschlüsse;R;Deutscher 4-Loch-Flansch SAE-B,Sauganschluss M8: Lochkreisdurchmesser 55mm,Druckanschluss M8: Lochkreisdurchmesser 55mm
 Betriebsflüssigkeit;C;HFC (Wasserglycol)
 max. Betriebsdruck;35;350 bar für Mineralöl- , HFD- und Skydrol-Pumpen
 Steuerung/Regler;D1;RKP-D mit Eigendruckversorgung
