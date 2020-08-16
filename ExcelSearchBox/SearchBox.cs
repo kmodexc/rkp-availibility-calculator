@@ -1,6 +1,7 @@
 ﻿using ExcelSearchBox.Properties;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ExcelSearchBox
@@ -9,6 +10,7 @@ namespace ExcelSearchBox
     {
         private ExcelWrapper excelWrapper;
         private string[] nameCol;
+        private List<string[]> itemList;
 
         public SearchBox()
         {
@@ -19,20 +21,20 @@ namespace ExcelSearchBox
         {
             try
             {
-                if (Uri.IsWellFormedUriString(Settings.Default.sourceFile, UriKind.Absolute))
-                {
-                    excelWrapper = new OfficeExcelWrapper(Settings.Default.sourceFile);
-                }
+                if (File.Exists(Settings.Default.sourceFile))
+                    excelWrapper = new EDRExcelWrapper(Settings.Default.sourceFile);
                 else
                 {
-                    excelWrapper = new OfficeExcelWrapper();
                     MessageBox.Show("Die Quelldatei ist ungültig (\"" + Settings.Default.sourceFile + "\"). Bitte andere Datei einstellen.");
                 }
-                textBoxSourceFile.Text = excelWrapper.GetFilename();
-                nameCol = excelWrapper.GetCol(3);
-                if (nameCol == null)
+                if (excelWrapper != null)
                 {
-                    MessageBox.Show("Die Quelldatei ist ungültig. Bitte andere Datei einstellen.");
+                    textBoxSourceFile.Text = excelWrapper.GetFilename();
+                    nameCol = excelWrapper.GetCol(2);
+                    if (nameCol == null)
+                    {
+                        MessageBox.Show("Die Quelldatei ist ungültig. Bitte andere Datei einstellen.");
+                    }
                 }
             }
             catch (Exception exc)
@@ -43,24 +45,25 @@ namespace ExcelSearchBox
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
+            if (excelWrapper == null) return;
             try
             {
                 listSearchResults.Items.Clear();
 
                 Cursor.Current = Cursors.WaitCursor;
 
-                var res = excelWrapper.SearchRow(textBoxSearchString.Text);
+                itemList = excelWrapper.SearchRow(textBoxSearchString.Text);
 
                 Cursor.Current = Cursors.Default;
 
-                if (res == null)
+                if (itemList == null)
                 {
                     MessageBox.Show("Nichts gefunden");
                     return;
                 }
-                foreach (string[] arr in res)
+                for (int cnt = 0; cnt < itemList.Count; cnt++)
                 {
-                    listSearchResults.Items.Add(arr[0]);
+                    listSearchResults.Items.Add(itemList[cnt][0]);
                 }
             }
             catch (Exception exc)
@@ -71,6 +74,7 @@ namespace ExcelSearchBox
 
         private void textBoxSearchString_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (excelWrapper == null) return;
             if (e.KeyChar == (char)13)
             {
                 buttonSearch_Click(sender, e);
@@ -79,19 +83,24 @@ namespace ExcelSearchBox
 
         private void listSearchResults_DoubleClick(object sender, EventArgs e)
         {
+            if (excelWrapper == null) return;
             try
             {
                 if (listSearchResults.SelectedIndex < 0) return;
                 tabControl.SelectedTab = tabDetails;
                 labelDetailName.Text = "";
                 listDetails.Items.Clear();
-                Cursor.Current = Cursors.WaitCursor;
-                string[] obj = excelWrapper.SearchRow(listSearchResults.SelectedItem.ToString())[0];
-                Cursor.Current = Cursors.Default;
+                string[] obj = itemList[listSearchResults.SelectedIndex];
                 labelDetailName.Text = "Pumpennummer: " + obj[0];
-                for (int cnt = 2; cnt < obj.Length; cnt++)
+                labelTypeCode.Text = "Typenschlüssel: " + obj[1];
+                listDetails.Columns[0].Width = 300;
+                listDetails.Columns[1].Width = 200;
+                for (int cnt = 1; cnt < obj.Length; cnt++)
                 {
-                    listDetails.Items.Add($"{nameCol[cnt],-100}\t{obj[cnt],-30}");
+                    string[] str = new string[2];
+                    str[0] = nameCol[cnt];
+                    str[1] = obj[cnt];
+                    listDetails.Items.Add(new ListViewItem(str));
                 }
             }
             catch (Exception exc)
@@ -102,17 +111,45 @@ namespace ExcelSearchBox
 
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (excelWrapper.GetFilename() != textBoxSourceFile.Text)
+            if (excelWrapper == null || excelWrapper.GetFilename() != textBoxSourceFile.Text)
             {
+                Cursor.Current = Cursors.WaitCursor;
                 Settings.Default.sourceFile = textBoxSourceFile.Text;
                 Settings.Default.Save();
+                Settings.Default.Upgrade();
                 LoadExcelWrapper();
+                Cursor.Current = Cursors.Default;
             }
         }
 
         private void SearchBox_Shown(object sender, EventArgs e)
         {
             LoadExcelWrapper();
+        }
+
+        private void buttonDatasheet_Click(object sender, EventArgs e)
+        {
+            if (excelWrapper == null) return;
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                DataSheetCreator dataSheetCreator = new DataSheetCreator(excelWrapper.GetFilename());
+                string content = dataSheetCreator.CreateDataSheet(itemList[listSearchResults.SelectedIndex]);
+                this.saveFileDialog1.DefaultExt = ".csv";
+                this.saveFileDialog1.FileName = itemList[listSearchResults.SelectedIndex][1];
+                this.saveFileDialog1.AddExtension = true;
+                this.saveFileDialog1.CheckPathExists = true;
+                this.saveFileDialog1.Filter = "CSV Dateien | *.csv";
+                Cursor.Current = Cursors.Default;
+                if (this.saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    File.WriteAllText(this.saveFileDialog1.FileName, content);
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.ToString());
+            }
         }
     }
 }
