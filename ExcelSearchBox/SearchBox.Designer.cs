@@ -48,12 +48,16 @@
             this.labelDetailName = new System.Windows.Forms.Label();
             this.tabComponents = new System.Windows.Forms.TabPage();
             this.groupComponents = new System.Windows.Forms.GroupBox();
+            this.labelStatistics = new System.Windows.Forms.Label();
             this.tabSettings = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxSourceFile = new System.Windows.Forms.TextBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.labelStatistics = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importLagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportLagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl.SuspendLayout();
             this.tabSearch.SuspendLayout();
             this.groupSearchResults.SuspendLayout();
@@ -65,6 +69,7 @@
             this.groupComponents.SuspendLayout();
             this.tabSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -76,10 +81,10 @@
             this.tabControl.Controls.Add(this.tabDetails);
             this.tabControl.Controls.Add(this.tabComponents);
             this.tabControl.Controls.Add(this.tabSettings);
-            this.tabControl.Location = new System.Drawing.Point(12, 12);
+            this.tabControl.Location = new System.Drawing.Point(12, 68);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1484, 974);
+            this.tabControl.Size = new System.Drawing.Size(1480, 905);
             this.tabControl.TabIndex = 0;
             this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
             // 
@@ -90,7 +95,7 @@
             this.tabSearch.Location = new System.Drawing.Point(8, 39);
             this.tabSearch.Name = "tabSearch";
             this.tabSearch.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSearch.Size = new System.Drawing.Size(1468, 927);
+            this.tabSearch.Size = new System.Drawing.Size(1464, 858);
             this.tabSearch.TabIndex = 0;
             this.tabSearch.Text = "Suchen";
             this.tabSearch.UseVisualStyleBackColor = true;
@@ -103,7 +108,7 @@
             this.groupSearchResults.Controls.Add(this.listSearchResults);
             this.groupSearchResults.Location = new System.Drawing.Point(6, 147);
             this.groupSearchResults.Name = "groupSearchResults";
-            this.groupSearchResults.Size = new System.Drawing.Size(1447, 769);
+            this.groupSearchResults.Size = new System.Drawing.Size(1443, 700);
             this.groupSearchResults.TabIndex = 1;
             this.groupSearchResults.TabStop = false;
             this.groupSearchResults.Text = "Ergebnisse";
@@ -117,7 +122,7 @@
             this.listSearchResults.ItemHeight = 25;
             this.listSearchResults.Location = new System.Drawing.Point(14, 30);
             this.listSearchResults.Name = "listSearchResults";
-            this.listSearchResults.Size = new System.Drawing.Size(1416, 704);
+            this.listSearchResults.Size = new System.Drawing.Size(1412, 604);
             this.listSearchResults.TabIndex = 0;
             this.listSearchResults.DoubleClick += new System.EventHandler(this.listSearchResults_DoubleClick);
             // 
@@ -131,7 +136,7 @@
             this.groupSearchInput.Controls.Add(this.textBoxSearchString);
             this.groupSearchInput.Location = new System.Drawing.Point(6, 6);
             this.groupSearchInput.Name = "groupSearchInput";
-            this.groupSearchInput.Size = new System.Drawing.Size(1447, 199);
+            this.groupSearchInput.Size = new System.Drawing.Size(1443, 130);
             this.groupSearchInput.TabIndex = 0;
             this.groupSearchInput.TabStop = false;
             this.groupSearchInput.Text = "Eingabe";
@@ -139,7 +144,7 @@
             // buttonSearch
             // 
             this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSearch.Location = new System.Drawing.Point(1257, 50);
+            this.buttonSearch.Location = new System.Drawing.Point(1253, 50);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(148, 47);
             this.buttonSearch.TabIndex = 2;
@@ -299,6 +304,16 @@
             this.groupComponents.TabStop = false;
             this.groupComponents.Text = "Komponenten";
             // 
+            // labelStatistics
+            // 
+            this.labelStatistics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelStatistics.AutoSize = true;
+            this.labelStatistics.Location = new System.Drawing.Point(6, 790);
+            this.labelStatistics.Name = "labelStatistics";
+            this.labelStatistics.Size = new System.Drawing.Size(147, 25);
+            this.labelStatistics.TabIndex = 300;
+            this.labelStatistics.Text = "Statistik lädt...";
+            // 
             // tabSettings
             // 
             this.tabSettings.Controls.Add(this.groupBox1);
@@ -339,22 +354,49 @@
             this.textBoxSourceFile.Size = new System.Drawing.Size(862, 31);
             this.textBoxSourceFile.TabIndex = 0;
             // 
-            // labelStatistics
+            // menuStrip1
             // 
-            this.labelStatistics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelStatistics.AutoSize = true;
-            this.labelStatistics.Location = new System.Drawing.Point(6, 790);
-            this.labelStatistics.Name = "labelStatistics";
-            this.labelStatistics.Size = new System.Drawing.Size(147, 25);
-            this.labelStatistics.TabIndex = 300;
-            this.labelStatistics.Text = "Statistik lädt...";
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dateiToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1672, 40);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // dateiToolStripMenuItem
+            // 
+            this.dateiToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importLagerToolStripMenuItem,
+            this.exportLagerToolStripMenuItem});
+            this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
+            this.dateiToolStripMenuItem.Size = new System.Drawing.Size(91, 38);
+            this.dateiToolStripMenuItem.Text = "Datei";
+            // 
+            // importLagerToolStripMenuItem
+            // 
+            this.importLagerToolStripMenuItem.Name = "importLagerToolStripMenuItem";
+            this.importLagerToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
+            this.importLagerToolStripMenuItem.Text = "Import Lager";
+            this.importLagerToolStripMenuItem.Click += new System.EventHandler(this.importLagerToolStripMenuItem_Click);
+            // 
+            // exportLagerToolStripMenuItem
+            // 
+            this.exportLagerToolStripMenuItem.Name = "exportLagerToolStripMenuItem";
+            this.exportLagerToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
+            this.exportLagerToolStripMenuItem.Text = "Export Lager";
+            this.exportLagerToolStripMenuItem.Click += new System.EventHandler(this.exportLagerToolStripMenuItem_Click);
             // 
             // SearchBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1508, 998);
+            this.ClientSize = new System.Drawing.Size(1672, 1206);
             this.Controls.Add(this.tabControl);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "SearchBox";
             this.ShowIcon = false;
@@ -375,7 +417,10 @@
             this.tabSettings.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -407,6 +452,10 @@
         private System.Windows.Forms.GroupBox groupComponents;
         private System.Windows.Forms.CheckBox checkBoxAvailable;
         private System.Windows.Forms.Label labelStatistics;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem dateiToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importLagerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportLagerToolStripMenuItem;
     }
 }
 

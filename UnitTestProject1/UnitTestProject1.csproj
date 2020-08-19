@@ -54,6 +54,7 @@
     <Compile Include="EDRExcelWrapperTest.cs" />
     <Compile Include="MaterialMatrixTest.cs" />
     <Compile Include="AvailibilityCheckTest.cs" />
+    <Compile Include="StatisticsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

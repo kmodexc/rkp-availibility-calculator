@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,7 +34,7 @@ namespace ExcelSearchBox
             LabelMatY.Add(3, "HD DS1");
             LabelMatY.Add(4, "Hubfix B1");
             LabelMatY.Add(5, "links Solo");
-            LabelMatY.Add(6, "links DS1");            
+            LabelMatY.Add(6, "links DS1");
             LabelMatY.Add(7, "A1");
             LabelMatY.Add(8, "A1 DS1");
             LabelMatY.Add(9, "B1 DS1");
@@ -172,7 +174,7 @@ namespace ExcelSearchBox
                 while (Data[tmp_x, y] == INACTIVE_ENTRY)
                 {
                     if (tmp_x == 0 && Data[tmp_x, y] == INACTIVE_ENTRY)
-                        throw new Exception("try to read inactive entry ("+x+","+y+")");
+                        throw new Exception("try to read inactive entry (" + x + "," + y + ")");
                     tmp_x--;
                 }
                 return Data[tmp_x, y];
@@ -208,6 +210,86 @@ namespace ExcelSearchBox
                 }
             }
             return sum;
+        }
+
+        public string Serialize()
+        {
+            StringBuilder str = new StringBuilder();
+
+            // print version for portability
+            str.AppendLine("MaterialMatrix Serialize v1.0");
+
+            str.Append(';');
+            for (int x = 0; x < SIZE_X; x++)
+            {
+                str.Append(LabelMatX[x]);
+                str.Append(';');
+            }
+            str.AppendLine();
+
+            for (int y = 0; y < SIZE_Y; y++)
+            {
+                str.Append(LabelMatY[y]);
+                str.Append(';');
+                for (int x = 0; x < SIZE_X; x++)
+                {
+                    if (IsInactive(x, y))
+                    {
+                        str.Append("NaN");
+                    }
+                    else
+                    {
+                        str.Append(this[x, y]);
+                    }
+                    str.Append(';');
+                }
+                str.AppendLine();
+            }
+
+            return str.ToString();
+        }
+
+        public void SaveToFile(string path)
+        {
+            File.WriteAllText(path, Serialize());
+        }
+
+        public static MaterialMatrix ReadFromFile(string path)
+        {
+            MaterialMatrix mat = new MaterialMatrix();
+            using (TextFieldParser parser = new TextFieldParser(path))
+            {
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(";");
+                if (!parser.EndOfData) parser.ReadFields(); // name/ version of serialize
+                if (!parser.EndOfData) parser.ReadFields(); // label of x
+                for (int y = 0; y < SIZE_Y && !parser.EndOfData; y++)
+                {
+                    //Processing row
+                    string[] fields = parser.ReadFields();
+                    for (int x = 0; x < SIZE_X && x < fields.Length; x++)
+                    {
+                        int val = 0;
+                        if (fields[x + 1] == "NaN")
+                        {
+                            mat.Data[x, y] = INACTIVE_ENTRY;
+                        }
+                        else if (string.IsNullOrWhiteSpace(fields[x + 1]))
+                        {
+                            mat.Data[x, y] = 0;
+                        }
+                        else if (int.TryParse(fields[x + 1], out val))
+                        {
+                            mat.Data[x, y] = val;
+                        }
+                        else
+                        {
+                            throw new Exception("Illegal character at serialization");
+                        }
+                    }
+                }
+            }
+            return mat;
         }
     }
 }

@@ -15,8 +15,6 @@ namespace ExcelSearchBox
         private string[] nameCol;
         private List<string[]> itemList;
         private TextBox[,] componentsMatrix;
-        public const string STR_LOADING_STATISTIC_WAIT = "Keine Statistik";
-        public const string STR_LOADING_STATISTIC_PROG = "Statistik lädt ....";
         MaterialMatrix materialMat;
         int materialMatLastPosEntrys;
 
@@ -31,55 +29,11 @@ namespace ExcelSearchBox
 
         private string LoadStatistics()
         {
-#if !DEBUG
-            try
-#endif
-            {
-                if (materialMat == null || !materialMat.IsNotNegativ() || materialMat.CountNonNegativeEntrys() < 3)
-                    return STR_LOADING_STATISTIC_WAIT;
-                MaterialMatrix tmpMaterialMatrix = materialMat.Clone();
-                int countAll = 0;
-                int countAllAvai = 0;
-                int countRKP = 0;
-                int countRKPAvai = 0;
-                int resolvable = 0;
-                int resolvableAvai = 0;
-                for (int colInd = 49; colInd < excelWrapper.GetRowCount(); colInd++)
-                {
-                    string[] obj = excelWrapper.GetRow(colInd);
-                    bool isAvai = false;
-                    bool isResolvable = false;
-#if !DEBUG
-                    try
-#endif
-                    {
-                        isAvai = AvailabilityCheck.IsAvailable(obj, tmpMaterialMatrix);
-                        isResolvable = AvailabilityCheck.CanResolve(obj);
-                    }
-#if !DEBUG
-                    catch (Exception) { }
-#endif
-                    if (isAvai) countAllAvai++;
-                    countAll++;
-                    if (obj[11] == "RKP" || obj[11] == "FRP")
-                    {
-                        countRKP++;
-                        if (isAvai) countRKPAvai++;
-                    }
-                    if (isResolvable)
-                    {
-                        resolvable++;
-                        if (isAvai) resolvableAvai++;
-                    }
-                }
-                return "Abdeckung insgesamt: " + ((100 * countAllAvai) / countAll) + "%\n"
-                    + "Abdeckung RKP/FRP: " + ((100 * countRKPAvai) / countRKP) + "%\n"
-                + "Abdeckung berücksichtigte RKP/FRP: " + ((100 * resolvableAvai) / resolvable) + "%\n"
-                + "Es gibt " + resolvable + " von " + countAll + " berücksichtigte RKP/FRP";
-            }
-#if !DEBUG
-            catch (Exception exc) { return exc.ToString(); }
-#endif
+            if (materialMat == null || !materialMat.IsNotNegativ() || materialMat.CountNonNegativeEntrys() < 3)
+                return Statistics.STR_LOADING_STATISTIC_WAIT;
+            Statistics stat = Statistics.CalcStatistics(excelWrapper, materialMat);
+            if (stat == null) return "could not calculate stat";
+            return stat?.ToString();
         }
 
         private void LoadExcelWrapper()
@@ -172,7 +126,7 @@ namespace ExcelSearchBox
                     componentsMatrix[x, y].TabIndex = x + y * MaterialMatrix.SIZE_X;
                     componentsMatrix[x, y].Text = "";
                     componentsMatrix[x, y].Size = new System.Drawing.Size(30, 31);
-                    componentsMatrix[x, y].TextChanged += SearchBox_CheckStateChanged;
+                    componentsMatrix[x, y].TextChanged += components_textchanged;
                     componentsMatrix[x, y].Enabled = !materialMat.IsInactive(x, y);
                     groupComponents.Controls.Add(componentsMatrix[x, y]);
                 }
@@ -181,48 +135,53 @@ namespace ExcelSearchBox
             for (int cnt = 0; cnt < labelY.Length; cnt++) labelY[cnt].Text = MaterialMatrix.LabelMatY[int.Parse(labelY[cnt].Text)];
         }
 
-        private void SearchBox_CheckStateChanged(object sender, EventArgs e)
+        private void components_textchanged(object sender, EventArgs e)
         {
             TextBox sender_textbox = sender as TextBox;
-            int sender_x = -1, sender_y = -1;
-            for (int x = 0; x < MaterialMatrix.SIZE_X; x++)
+            if (sender_textbox != null)
             {
-                for (int y = 0; y < MaterialMatrix.SIZE_Y; y++)
+                int sender_x = -1, sender_y = -1;
+                for (int x = 0; x < MaterialMatrix.SIZE_X; x++)
                 {
-                    if (sender_textbox == componentsMatrix[x, y])
+                    for (int y = 0; y < MaterialMatrix.SIZE_Y; y++)
                     {
-                        sender_x = x;
-                        sender_y = y;
+                        if (sender_textbox == componentsMatrix[x, y])
+                        {
+                            sender_x = x;
+                            sender_y = y;
+                        }
                     }
                 }
+                int val = MaterialMatrix.INACTIVE_ENTRY;
+                if (int.TryParse(sender_textbox.Text, out val))
+                {
+                    materialMat[sender_x, sender_y] = val;
+                }
+                if (sender_textbox.Text == "")
+                {
+                    materialMat[sender_x, sender_y] = 0;
+                }
             }
-            int val = MaterialMatrix.INACTIVE_ENTRY;
-            if (int.TryParse(sender_textbox.Text, out val))
-            {
-                materialMat[sender_x, sender_y] = val;
-            }
-            if (sender_textbox.Text == "")
-            {
-                materialMat[sender_x, sender_y] = 0;
-            }
-
             for (int x = 0; x < MaterialMatrix.SIZE_X; x++)
             {
                 for (int y = 0; y < MaterialMatrix.SIZE_Y; y++)
                 {
-                    if (sender_textbox != componentsMatrix[x, y] && !materialMat.IsInactive(0, y))
+                    if(!materialMat.IsInactive(0, y))
                     {
-                        if (materialMat[x, y] == 0)
+                        if (sender_textbox == null || sender_textbox != componentsMatrix[x, y])
                         {
-                            if (!string.IsNullOrWhiteSpace(componentsMatrix[x, y].Text))
-                                componentsMatrix[x, y].Text = "";
+                            if (materialMat[x, y] == 0)
+                            {
+                                if (!string.IsNullOrWhiteSpace(componentsMatrix[x, y].Text))
+                                    componentsMatrix[x, y].Text = "";
+                            }
+                            else
+                            {
+                                if (componentsMatrix[x, y].Text != materialMat[x, y].ToString())
+                                    componentsMatrix[x, y].Text = materialMat[x, y].ToString();
+                            }
                         }
-                        else
-                        {
-                            if (componentsMatrix[x, y].Text != materialMat[x, y].ToString())
-                                componentsMatrix[x, y].Text = materialMat[x, y].ToString();
-                        }
-                    }
+                    }                    
                 }
             }
         }
@@ -318,9 +277,9 @@ namespace ExcelSearchBox
             if (materialMat != null && materialMat.CountNonNegativeEntrys() != materialMatLastPosEntrys)
             {
                 materialMatLastPosEntrys = materialMat.CountNonNegativeEntrys();
-                if (labelStatistics.Text != STR_LOADING_STATISTIC_PROG)
+                if (labelStatistics.Text != Statistics.STR_LOADING_STATISTIC_PROG)
                 {
-                    labelStatistics.Text = STR_LOADING_STATISTIC_PROG;
+                    labelStatistics.Text = Statistics.STR_LOADING_STATISTIC_PROG;
                     string newText = await Task.Run<string>(LoadStatistics);
                     labelStatistics.Text = newText;
                 }
@@ -358,5 +317,55 @@ namespace ExcelSearchBox
             }
         }
 
+        private void exportLagerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
+            saveFileDialog1.DefaultExt = "csv";
+            saveFileDialog1.FilterIndex = 1;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    materialMat.SaveToFile(saveFileDialog1.FileName);
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show("Could write file\n" + exc.ToString());
+                }
+            }
+        }
+
+        private void importLagerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.RestoreDirectory = true;
+            openFileDialog.CheckFileExists = true;
+            var result = openFileDialog.ShowDialog();
+            if(result == DialogResult.OK)
+            {
+                if (File.Exists(openFileDialog.FileName))
+                {
+                    try
+                    {
+                        materialMat = MaterialMatrix.ReadFromFile(openFileDialog.FileName);
+                        // update textboxes
+                        components_textchanged(null, null);
+                    }
+                    catch(Exception exc)
+                    {
+                        MessageBox.Show("Could not read file\n" + exc.ToString());
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Die Datei konnte nicht gefunden werden");
+                }
+            }
+        }
     }
 }

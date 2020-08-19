@@ -37,5 +37,15 @@ namespace UnitTestProject1
             Assert.AreEqual(obj[0].Trim(), "D951-5001");
             Assert.AreEqual(obj[1].Trim(), "HPR18B1RKP019SM28F1Y00RKP019SM28F1Y00");
         }
+        [TestMethod]
+        public void SearchPump1()
+        {
+            var excelWrapper = new EDRExcelWrapper(@"C:\Users\mariu\OneDrive\Documents\Kennliste2.xlsx");
+            var res = excelWrapper.SearchRow("D954-2305");
+            Assert.AreEqual(1, res.Count);
+            string[] obj = res[0];
+            Assert.AreEqual(obj[0].Trim(), "D954-2305");
+            Assert.AreEqual(obj[1].Trim(), "HPR15A7RKP063KM28S2Z11");
+        }
     }
 }

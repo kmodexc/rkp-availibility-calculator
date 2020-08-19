@@ -30,7 +30,7 @@ namespace UnitTestProject1
             obj[17] = "Z";
             obj[18] = "00";
             obj[19] = "";
-            Assert.IsTrue(AvailabilityCheck.IsAvailable(obj,avaiMat));
+            Assert.IsTrue(AvailabilityCheck.IsAvailable(obj, avaiMat));
         }
         [TestMethod]
         public void GehauseSoloNichtDa()
@@ -53,7 +53,7 @@ namespace UnitTestProject1
             obj[17] = "Z";
             obj[18] = "00";
             obj[19] = "";
-            Assert.IsFalse(AvailabilityCheck.IsAvailable(obj,avaiMat));
+            Assert.IsFalse(AvailabilityCheck.IsAvailable(obj, avaiMat));
         }
         [TestMethod]
         public void GehauseDS1Da()
@@ -79,7 +79,7 @@ namespace UnitTestProject1
             obj[18] = "00";
             obj[19] = "DS1";
             obj[20] = "";
-            Assert.IsTrue( AvailabilityCheck.IsAvailable( obj,avaiMat));
+            Assert.IsTrue(AvailabilityCheck.IsAvailable(obj, avaiMat));
         }
         [TestMethod]
         public void GehauseDS1NichtDa()
@@ -103,7 +103,7 @@ namespace UnitTestProject1
             obj[18] = "00";
             obj[19] = "DS1";
             obj[20] = "";
-            Assert.IsFalse(AvailabilityCheck.IsAvailable(obj,avaiMat));
+            Assert.IsFalse(AvailabilityCheck.IsAvailable(obj, avaiMat));
         }
         [TestMethod]
         public void Lagerdeckel1DoppelDa()
@@ -139,7 +139,7 @@ namespace UnitTestProject1
             obj[25] = "Z";
             obj[26] = "00";
             obj[27] = "";
-            Assert.IsTrue( AvailabilityCheck.IsAvailable(obj, avaiMat));
+            Assert.IsTrue(AvailabilityCheck.IsAvailable(obj, avaiMat));
         }
         [TestMethod]
         public void Lagerdeckel1DoppelNichtDa()
@@ -392,6 +392,53 @@ namespace UnitTestProject1
             obj[27] = "";
             Assert.IsFalse(AvailabilityCheck.IsAvailable(obj, avaiMat));
         }
-
+        [TestMethod]
+        public void ReglerS2Da()
+        {
+            MaterialMatrix avaiMat = new MaterialMatrix();
+            avaiMat[3, 0] = 1;
+            avaiMat[3, 13] = 1;
+            avaiMat[3, 38] = 1;
+            string[] obj = new string[20];
+            for (int cnt = 0; cnt < obj.Length; cnt++) obj[cnt] = "testStr_" + cnt;
+            obj[0] = "D";
+            obj[7] = "HP";
+            obj[8] = "R";
+            obj[9] = "15";
+            obj[10] = "A7";
+            obj[11] = "RKP";
+            obj[12] = "063";
+            obj[13] = "K";
+            obj[14] = "M";
+            obj[15] = "18";
+            obj[16] = "S2";
+            obj[17] = "Z";
+            obj[18] = "11";
+            obj[19] = "";
+            Assert.IsTrue(AvailabilityCheck.IsAvailable(obj, avaiMat));
+        }
+        [TestMethod]
+        public void ReglerS2NichtDa()
+        {
+            MaterialMatrix avaiMat = new MaterialMatrix(100);
+            avaiMat[3, 38] = 0;
+            string[] obj = new string[20];
+            for (int cnt = 0; cnt < obj.Length; cnt++) obj[cnt] = "testStr_" + cnt;
+            obj[0] = "D";
+            obj[7] = "HP";
+            obj[8] = "R";
+            obj[9] = "15";
+            obj[10] = "A7";
+            obj[11] = "RKP";
+            obj[12] = "063";
+            obj[13] = "K";
+            obj[14] = "M";
+            obj[15] = "18";
+            obj[16] = "S2";
+            obj[17] = "Z";
+            obj[18] = "11";
+            obj[19] = "";
+            Assert.IsFalse(AvailabilityCheck.IsAvailable(obj, avaiMat));
+        }
     }
 }

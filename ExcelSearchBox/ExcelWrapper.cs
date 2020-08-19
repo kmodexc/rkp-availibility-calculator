@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 namespace ExcelSearchBox
 {
-    interface ExcelWrapper
+    public interface ExcelWrapper
     {
         string GetFilename();
         void SetFilename(string str);
