@@ -174,10 +174,20 @@ namespace ExcelSearchBox
             isFileInUse = false;
         }
 
-        public string[] GetCol(int c)
+        public string[] GetRow(int c)
         {
             if (!isFileInUse) throw new Exception("File not open");
             return ColToStr(xlRange, c+1);
+        }
+
+        public int GetColumnCount()
+        {
+            return xlRange.Rows.Count;
+        }
+
+        public int GetRowCount()
+        {
+            return xlRange.Columns.Count;
         }
     }
 }

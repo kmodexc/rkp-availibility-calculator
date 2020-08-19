@@ -68,6 +68,14 @@ namespace ExcelSearchBox
             LabelMatY.Add(39, "S3");
             LabelMatY.Add(40, "S1");
         }
+
+        public MaterialMatrix Clone()
+        {
+            MaterialMatrix m2 = new MaterialMatrix();
+            m2.Data = (int[,])this.Data.Clone();
+            return m2;
+        }
+
         public MaterialMatrix()
         {
             Data = new int[SIZE_X, SIZE_Y];

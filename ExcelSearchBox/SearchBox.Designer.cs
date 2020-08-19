@@ -53,6 +53,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxSourceFile = new System.Windows.Forms.TextBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.labelStatistics = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabSearch.SuspendLayout();
             this.groupSearchResults.SuspendLayout();
@@ -61,6 +62,7 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabComponents.SuspendLayout();
+            this.groupComponents.SuspendLayout();
             this.tabSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -289,9 +291,10 @@
             this.groupComponents.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupComponents.Controls.Add(this.labelStatistics);
             this.groupComponents.Location = new System.Drawing.Point(6, 6);
             this.groupComponents.Name = "groupComponents";
-            this.groupComponents.Size = new System.Drawing.Size(1851, 1313);
+            this.groupComponents.Size = new System.Drawing.Size(1447, 895);
             this.groupComponents.TabIndex = 0;
             this.groupComponents.TabStop = false;
             this.groupComponents.Text = "Komponenten";
@@ -336,6 +339,16 @@
             this.textBoxSourceFile.Size = new System.Drawing.Size(862, 31);
             this.textBoxSourceFile.TabIndex = 0;
             // 
+            // labelStatistics
+            // 
+            this.labelStatistics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelStatistics.AutoSize = true;
+            this.labelStatistics.Location = new System.Drawing.Point(6, 790);
+            this.labelStatistics.Name = "labelStatistics";
+            this.labelStatistics.Size = new System.Drawing.Size(147, 25);
+            this.labelStatistics.TabIndex = 300;
+            this.labelStatistics.Text = "Statistik lädt...";
+            // 
             // SearchBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -357,6 +370,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tabComponents.ResumeLayout(false);
+            this.groupComponents.ResumeLayout(false);
+            this.groupComponents.PerformLayout();
             this.tabSettings.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -391,6 +406,7 @@
         private System.Windows.Forms.TabPage tabComponents;
         private System.Windows.Forms.GroupBox groupComponents;
         private System.Windows.Forms.CheckBox checkBoxAvailable;
+        private System.Windows.Forms.Label labelStatistics;
     }
 }
 

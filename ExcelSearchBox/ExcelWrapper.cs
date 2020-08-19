@@ -6,7 +6,8 @@ namespace ExcelSearchBox
         string GetFilename();
         void SetFilename(string str);
         List<string[]> SearchRow(string searchStr);
-        string[] GetCol(int c);
-        
+        string[] GetRow(int c);
+        int GetColumnCount();
+        int GetRowCount();
     }
 }

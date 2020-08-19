@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Remoting.Channels;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ExcelSearchBox
@@ -13,12 +15,71 @@ namespace ExcelSearchBox
         private string[] nameCol;
         private List<string[]> itemList;
         private TextBox[,] componentsMatrix;
+        public const string STR_LOADING_STATISTIC_WAIT = "Keine Statistik";
+        public const string STR_LOADING_STATISTIC_PROG = "Statistik lädt ....";
         MaterialMatrix materialMat;
+        int materialMatLastPosEntrys;
 
         public SearchBox()
         {
             InitializeComponent();
             CreateComponentsTab();
+            materialMatLastPosEntrys = 0;
+            // if component are saved it may have more sense
+            //(new Thread(LoadStatistics)).Start();
+        }
+
+        private string LoadStatistics()
+        {
+#if !DEBUG
+            try
+#endif
+            {
+                if (materialMat == null || !materialMat.IsNotNegativ() || materialMat.CountNonNegativeEntrys() < 3)
+                    return STR_LOADING_STATISTIC_WAIT;
+                MaterialMatrix tmpMaterialMatrix = materialMat.Clone();
+                int countAll = 0;
+                int countAllAvai = 0;
+                int countRKP = 0;
+                int countRKPAvai = 0;
+                int resolvable = 0;
+                int resolvableAvai = 0;
+                for (int colInd = 49; colInd < excelWrapper.GetRowCount(); colInd++)
+                {
+                    string[] obj = excelWrapper.GetRow(colInd);
+                    bool isAvai = false;
+                    bool isResolvable = false;
+#if !DEBUG
+                    try
+#endif
+                    {
+                        isAvai = AvailabilityCheck.IsAvailable(obj, tmpMaterialMatrix);
+                        isResolvable = AvailabilityCheck.CanResolve(obj);
+                    }
+#if !DEBUG
+                    catch (Exception) { }
+#endif
+                    if (isAvai) countAllAvai++;
+                    countAll++;
+                    if (obj[11] == "RKP" || obj[11] == "FRP")
+                    {
+                        countRKP++;
+                        if (isAvai) countRKPAvai++;
+                    }
+                    if (isResolvable)
+                    {
+                        resolvable++;
+                        if (isAvai) resolvableAvai++;
+                    }
+                }
+                return "Abdeckung insgesamt: " + ((100 * countAllAvai) / countAll) + "%\n"
+                    + "Abdeckung RKP/FRP: " + ((100 * countRKPAvai) / countRKP) + "%\n"
+                + "Abdeckung berücksichtigte RKP/FRP: " + ((100 * resolvableAvai) / resolvable) + "%\n"
+                + "Es gibt " + resolvable + " von " + countAll + " berücksichtigte RKP/FRP";
+            }
+#if !DEBUG
+            catch (Exception exc) { return exc.ToString(); }
+#endif
         }
 
         private void LoadExcelWrapper()
@@ -34,7 +95,7 @@ namespace ExcelSearchBox
                 if (excelWrapper != null)
                 {
                     textBoxSourceFile.Text = excelWrapper.GetFilename();
-                    nameCol = excelWrapper.GetCol(2);
+                    nameCol = excelWrapper.GetRow(2);
                     if (nameCol == null)
                     {
                         MessageBox.Show("Die Quelldatei ist ungültig. Bitte andere Datei einstellen.");
@@ -140,7 +201,7 @@ namespace ExcelSearchBox
             {
                 materialMat[sender_x, sender_y] = val;
             }
-            if(sender_textbox.Text == "")
+            if (sender_textbox.Text == "")
             {
                 materialMat[sender_x, sender_y] = 0;
             }
@@ -243,7 +304,7 @@ namespace ExcelSearchBox
             }
         }
 
-        private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
+        private async void tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (excelWrapper == null || excelWrapper.GetFilename() != textBoxSourceFile.Text)
             {
@@ -253,6 +314,17 @@ namespace ExcelSearchBox
                 Settings.Default.Upgrade();
                 LoadExcelWrapper();
                 Cursor.Current = Cursors.Default;
+            }
+            if (materialMat != null && materialMat.CountNonNegativeEntrys() != materialMatLastPosEntrys)
+            {
+                materialMatLastPosEntrys = materialMat.CountNonNegativeEntrys();
+                if (labelStatistics.Text != STR_LOADING_STATISTIC_PROG)
+                {
+                    labelStatistics.Text = STR_LOADING_STATISTIC_PROG;
+                    string newText = await Task.Run<string>(LoadStatistics);
+                    labelStatistics.Text = newText;
+                }
+
             }
         }
 

@@ -11,9 +11,8 @@ namespace ExcelSearchBox
     {
         public static bool IsAvailable(string[] productkey, MaterialMatrix avaiMat)
         {
-            if (avaiMat == null) throw new Exception("Availibility Matrix is null");
+            if (avaiMat == null) throw new Exception("Availibility Matrix is null ("+avaiMat+")");
             // only RKP II
-            if (!productkey[0].StartsWith("D")) return false;
             MaterialMatrix matMat = GetMaterials(productkey);
             if (matMat == null) return false;
             MaterialMatrix m3 = avaiMat - matMat;
@@ -39,7 +38,7 @@ namespace ExcelSearchBox
                 else next_pump_avai = false;
 
                 MaterialMatrix soloMat = GetMaterialsSolo(tmp_prodkey);
-                if (soloMat.CountNonNegativeEntrys() != 3)
+                if (soloMat == null || soloMat.CountNonNegativeEntrys() != 3)
                 {
                     return null;
                 }
@@ -51,9 +50,11 @@ namespace ExcelSearchBox
                 {
                     // remove repeating part to simulate solo pump
                     // articlenum might be false then but its only for detect of RKP II
-                    List<string> tmpKeyList = new List<string>(produktkey);
-                    tmpKeyList.RemoveRange(11, 8);
-                    tmp_prodkey = tmpKeyList.ToArray();
+                    
+                    for(int cnt=0;(19+cnt) < tmp_prodkey.Length; cnt++)
+                    {
+                        tmp_prodkey[11 + cnt] = tmp_prodkey[19 + cnt];
+                    }
 
                     // all following stages of RKP's have XX cover
                     tmp_prodkey[10] = "XX";
@@ -65,8 +66,15 @@ namespace ExcelSearchBox
         {
             // only RKP II
             if (!produktkey[0].StartsWith("D")) return null;
-            // todo write for double pump
+            // no AZP's
+            if (produktkey[11] != "RKP" && produktkey[11] != "FRP")
+                return null;
+            // only solo
             if (!string.IsNullOrWhiteSpace(produktkey[19]) && produktkey[19] != "DS1")
+                return null;
+            int pumpsize = int.Parse(produktkey[12]);
+            // only size <= 140
+            if (pumpsize > 140)
                 return null;
 
             MaterialMatrix materialMat = new MaterialMatrix();
@@ -201,6 +209,11 @@ namespace ExcelSearchBox
                 case "S1": materialMat[sizeIndex, 40]++; break;
             }
             return materialMat;
+        }
+        public static bool CanResolve(string[] productkey)
+        {
+            MaterialMatrix matMat = GetMaterials(productkey);
+            return matMat != null;
         }
     }
 }
