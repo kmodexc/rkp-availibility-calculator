@@ -95,7 +95,7 @@ namespace ExcelSearchBox
 
             }
 #if !DEBUG
-            catch (Exception exc) { return exc.ToString(); }
+            catch (Exception exc) { return ret; }
 #endif
             return ret;
         }
