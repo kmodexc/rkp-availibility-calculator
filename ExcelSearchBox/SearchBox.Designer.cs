@@ -42,9 +42,12 @@
             this.columnPropertyName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnPropertyValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBoxAvailable = new System.Windows.Forms.CheckBox();
             this.buttonDatasheet = new System.Windows.Forms.Button();
             this.labelTypeCode = new System.Windows.Forms.Label();
             this.labelDetailName = new System.Windows.Forms.Label();
+            this.tabComponents = new System.Windows.Forms.TabPage();
+            this.groupComponents = new System.Windows.Forms.GroupBox();
             this.tabSettings = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -57,19 +60,24 @@
             this.tabDetails.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.tabComponents.SuspendLayout();
             this.tabSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
             // 
+            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.tabSearch);
             this.tabControl.Controls.Add(this.tabDetails);
+            this.tabControl.Controls.Add(this.tabComponents);
             this.tabControl.Controls.Add(this.tabSettings);
             this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1238, 777);
+            this.tabControl.Size = new System.Drawing.Size(1484, 974);
             this.tabControl.TabIndex = 0;
             this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
             // 
@@ -80,46 +88,56 @@
             this.tabSearch.Location = new System.Drawing.Point(8, 39);
             this.tabSearch.Name = "tabSearch";
             this.tabSearch.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSearch.Size = new System.Drawing.Size(1222, 730);
+            this.tabSearch.Size = new System.Drawing.Size(1468, 927);
             this.tabSearch.TabIndex = 0;
             this.tabSearch.Text = "Suchen";
             this.tabSearch.UseVisualStyleBackColor = true;
             // 
             // groupSearchResults
             // 
+            this.groupSearchResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupSearchResults.Controls.Add(this.listSearchResults);
             this.groupSearchResults.Location = new System.Drawing.Point(6, 147);
             this.groupSearchResults.Name = "groupSearchResults";
-            this.groupSearchResults.Size = new System.Drawing.Size(1210, 577);
+            this.groupSearchResults.Size = new System.Drawing.Size(1447, 769);
             this.groupSearchResults.TabIndex = 1;
             this.groupSearchResults.TabStop = false;
             this.groupSearchResults.Text = "Ergebnisse";
             // 
             // listSearchResults
             // 
+            this.listSearchResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listSearchResults.FormattingEnabled = true;
             this.listSearchResults.ItemHeight = 25;
             this.listSearchResults.Location = new System.Drawing.Point(14, 30);
             this.listSearchResults.Name = "listSearchResults";
-            this.listSearchResults.Size = new System.Drawing.Size(1178, 529);
+            this.listSearchResults.Size = new System.Drawing.Size(1416, 704);
             this.listSearchResults.TabIndex = 0;
             this.listSearchResults.DoubleClick += new System.EventHandler(this.listSearchResults_DoubleClick);
             // 
             // groupSearchInput
             // 
+            this.groupSearchInput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupSearchInput.Controls.Add(this.buttonSearch);
             this.groupSearchInput.Controls.Add(this.label1);
             this.groupSearchInput.Controls.Add(this.textBoxSearchString);
             this.groupSearchInput.Location = new System.Drawing.Point(6, 6);
             this.groupSearchInput.Name = "groupSearchInput";
-            this.groupSearchInput.Size = new System.Drawing.Size(1210, 135);
+            this.groupSearchInput.Size = new System.Drawing.Size(1447, 199);
             this.groupSearchInput.TabIndex = 0;
             this.groupSearchInput.TabStop = false;
             this.groupSearchInput.Text = "Eingabe";
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(509, 50);
+            this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSearch.Location = new System.Drawing.Point(1257, 50);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(148, 47);
             this.buttonSearch.TabIndex = 2;
@@ -150,23 +168,30 @@
             this.tabDetails.Controls.Add(this.groupBox2);
             this.tabDetails.Location = new System.Drawing.Point(8, 39);
             this.tabDetails.Name = "tabDetails";
-            this.tabDetails.Size = new System.Drawing.Size(1222, 730);
+            this.tabDetails.Size = new System.Drawing.Size(1468, 927);
             this.tabDetails.TabIndex = 2;
             this.tabDetails.Text = "Details";
             this.tabDetails.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox3.Controls.Add(this.listDetails);
-            this.groupBox3.Location = new System.Drawing.Point(3, 154);
+            this.groupBox3.Location = new System.Drawing.Point(3, 155);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1216, 573);
+            this.groupBox3.Size = new System.Drawing.Size(1462, 769);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Details";
             // 
             // listDetails
             // 
+            this.listDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listDetails.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnPropertyName,
             this.columnPropertyValue});
@@ -174,7 +199,7 @@
             this.listDetails.HideSelection = false;
             this.listDetails.Location = new System.Drawing.Point(20, 30);
             this.listDetails.Name = "listDetails";
-            this.listDetails.Size = new System.Drawing.Size(1178, 529);
+            this.listDetails.Size = new System.Drawing.Size(1436, 733);
             this.listDetails.TabIndex = 0;
             this.listDetails.UseCompatibleStateImageBehavior = false;
             this.listDetails.View = System.Windows.Forms.View.Details;
@@ -191,19 +216,38 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.checkBoxAvailable);
             this.groupBox2.Controls.Add(this.buttonDatasheet);
             this.groupBox2.Controls.Add(this.labelTypeCode);
             this.groupBox2.Controls.Add(this.labelDetailName);
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1216, 145);
+            this.groupBox2.Size = new System.Drawing.Size(1456, 145);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Übersicht";
             // 
+            // checkBoxAvailable
+            // 
+            this.checkBoxAvailable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxAvailable.AutoCheck = false;
+            this.checkBoxAvailable.AutoSize = true;
+            this.checkBoxAvailable.BackColor = System.Drawing.Color.Transparent;
+            this.checkBoxAvailable.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBoxAvailable.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.checkBoxAvailable.Location = new System.Drawing.Point(1137, 64);
+            this.checkBoxAvailable.Name = "checkBoxAvailable";
+            this.checkBoxAvailable.Size = new System.Drawing.Size(138, 29);
+            this.checkBoxAvailable.TabIndex = 3;
+            this.checkBoxAvailable.Text = "Verfügbar";
+            this.checkBoxAvailable.UseVisualStyleBackColor = false;
+            // 
             // buttonDatasheet
             // 
-            this.buttonDatasheet.Location = new System.Drawing.Point(1053, 57);
+            this.buttonDatasheet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDatasheet.Location = new System.Drawing.Point(1281, 57);
             this.buttonDatasheet.Name = "buttonDatasheet";
             this.buttonDatasheet.Size = new System.Drawing.Size(145, 41);
             this.buttonDatasheet.TabIndex = 2;
@@ -229,24 +273,49 @@
             this.labelDetailName.TabIndex = 0;
             this.labelDetailName.Text = "Pumpennummer: ";
             // 
+            // tabComponents
+            // 
+            this.tabComponents.Controls.Add(this.groupComponents);
+            this.tabComponents.Location = new System.Drawing.Point(8, 39);
+            this.tabComponents.Name = "tabComponents";
+            this.tabComponents.Padding = new System.Windows.Forms.Padding(3);
+            this.tabComponents.Size = new System.Drawing.Size(1468, 927);
+            this.tabComponents.TabIndex = 3;
+            this.tabComponents.Text = "Lager";
+            this.tabComponents.UseVisualStyleBackColor = true;
+            // 
+            // groupComponents
+            // 
+            this.groupComponents.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupComponents.Location = new System.Drawing.Point(6, 6);
+            this.groupComponents.Name = "groupComponents";
+            this.groupComponents.Size = new System.Drawing.Size(1851, 1313);
+            this.groupComponents.TabIndex = 0;
+            this.groupComponents.TabStop = false;
+            this.groupComponents.Text = "Komponenten";
+            // 
             // tabSettings
             // 
             this.tabSettings.Controls.Add(this.groupBox1);
             this.tabSettings.Location = new System.Drawing.Point(8, 39);
             this.tabSettings.Name = "tabSettings";
             this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSettings.Size = new System.Drawing.Size(1222, 730);
+            this.tabSettings.Size = new System.Drawing.Size(1468, 927);
             this.tabSettings.TabIndex = 1;
             this.tabSettings.Text = "Einstellungen";
             this.tabSettings.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBoxSourceFile);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1190, 139);
+            this.groupBox1.Size = new System.Drawing.Size(1422, 139);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Quelldatei";
@@ -271,9 +340,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1262, 801);
+            this.ClientSize = new System.Drawing.Size(1508, 998);
             this.Controls.Add(this.tabControl);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "SearchBox";
             this.ShowIcon = false;
@@ -288,6 +356,7 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.tabComponents.ResumeLayout(false);
             this.tabSettings.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -319,6 +388,9 @@
         private System.Windows.Forms.Label labelTypeCode;
         private System.Windows.Forms.Button buttonDatasheet;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.TabPage tabComponents;
+        private System.Windows.Forms.GroupBox groupComponents;
+        private System.Windows.Forms.CheckBox checkBoxAvailable;
     }
 }
 

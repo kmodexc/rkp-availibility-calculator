@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Remoting.Channels;
 using System.Windows.Forms;
 
 namespace ExcelSearchBox
@@ -11,10 +12,13 @@ namespace ExcelSearchBox
         private ExcelWrapper excelWrapper;
         private string[] nameCol;
         private List<string[]> itemList;
+        private TextBox[,] componentsMatrix;
+        MaterialMatrix materialMat;
 
         public SearchBox()
         {
             InitializeComponent();
+            CreateComponentsTab();
         }
 
         private void LoadExcelWrapper()
@@ -40,6 +44,125 @@ namespace ExcelSearchBox
             catch (Exception exc)
             {
                 MessageBox.Show(exc.ToString());
+            }
+        }
+
+        private void CreateComponentsTab()
+        {
+            materialMat = new MaterialMatrix();
+            componentsMatrix = new TextBox[MaterialMatrix.SIZE_X, MaterialMatrix.SIZE_Y];
+
+            Label[] labelX = new Label[3 * MaterialMatrix.SIZE_X];
+            for (int cnt = 0; cnt < labelX.Length; cnt++) labelX[cnt] = new Label();
+            Label[] labelY = new Label[MaterialMatrix.SIZE_Y];
+            for (int cnt = 0; cnt < labelY.Length; cnt++) labelY[cnt] = new Label();
+
+            for (int x = 0; x < MaterialMatrix.SIZE_X; x++)
+            {
+                for (int y = 0; y < MaterialMatrix.SIZE_Y; y++)
+                {
+                    componentsMatrix[x, y] = new TextBox();
+                    int px = 0, py = 0;
+                    if (y < 7)
+                    {
+                        px = 90 + 30 * x;
+                        py = 60 + 30 * y;
+                    }
+                    else if (y >= 7 && y < 21)
+                    {
+                        px = (MaterialMatrix.SIZE_X + 6) * 30 + 30 * x;
+                        py = (-6 * 30) + 30 * y;
+                    }
+                    else
+                    {
+                        px = 2 * (MaterialMatrix.SIZE_X + 5) * 30 + 30 * x;
+                        py = (-20 * 30) + 30 * y;
+                    }
+                    if (x == 0)
+                    {
+                        labelY[y].Location = new System.Drawing.Point(px - 65, py);
+                        labelY[y].AutoSize = true;
+                        labelY[y].Text = "" + y;
+                        groupComponents.Controls.Add(labelY[y]);
+                    }
+                    if (y == 0)
+                    {
+                        labelX[x].Location = new System.Drawing.Point(px, py - 20);
+                        labelX[x].AutoSize = true;
+                        labelX[x].Text = "" + x;
+                        groupComponents.Controls.Add(labelX[x]);
+                    }
+                    if (y == 7)
+                    {
+                        labelX[x + 7].Location = new System.Drawing.Point(px, py - 20);
+                        labelX[x + 7].AutoSize = true;
+                        labelX[x + 7].Text = "" + x;
+                        groupComponents.Controls.Add(labelX[x + 7]);
+                    }
+                    if (y == 21)
+                    {
+                        labelX[x + 14].Location = new System.Drawing.Point(px, py - 20);
+                        labelX[x + 14].AutoSize = true;
+                        labelX[x + 14].Text = "" + x;
+                        groupComponents.Controls.Add(labelX[x + 14]);
+                    }
+                    componentsMatrix[x, y].Location = new System.Drawing.Point(px, py);
+                    componentsMatrix[x, y].Name = "textBox" + x + "_" + y;
+                    componentsMatrix[x, y].TabIndex = x + y * MaterialMatrix.SIZE_X;
+                    componentsMatrix[x, y].Text = "";
+                    componentsMatrix[x, y].Size = new System.Drawing.Size(30, 31);
+                    componentsMatrix[x, y].TextChanged += SearchBox_CheckStateChanged;
+                    componentsMatrix[x, y].Enabled = !materialMat.IsInactive(x, y);
+                    groupComponents.Controls.Add(componentsMatrix[x, y]);
+                }
+            }
+            for (int cnt = 0; cnt < labelX.Length; cnt++) labelX[cnt].Text = MaterialMatrix.LabelMatX[int.Parse(labelX[cnt].Text)];
+            for (int cnt = 0; cnt < labelY.Length; cnt++) labelY[cnt].Text = MaterialMatrix.LabelMatY[int.Parse(labelY[cnt].Text)];
+        }
+
+        private void SearchBox_CheckStateChanged(object sender, EventArgs e)
+        {
+            TextBox sender_textbox = sender as TextBox;
+            int sender_x = -1, sender_y = -1;
+            for (int x = 0; x < MaterialMatrix.SIZE_X; x++)
+            {
+                for (int y = 0; y < MaterialMatrix.SIZE_Y; y++)
+                {
+                    if (sender_textbox == componentsMatrix[x, y])
+                    {
+                        sender_x = x;
+                        sender_y = y;
+                    }
+                }
+            }
+            int val = MaterialMatrix.INACTIVE_ENTRY;
+            if (int.TryParse(sender_textbox.Text, out val))
+            {
+                materialMat[sender_x, sender_y] = val;
+            }
+            if(sender_textbox.Text == "")
+            {
+                materialMat[sender_x, sender_y] = 0;
+            }
+
+            for (int x = 0; x < MaterialMatrix.SIZE_X; x++)
+            {
+                for (int y = 0; y < MaterialMatrix.SIZE_Y; y++)
+                {
+                    if (sender_textbox != componentsMatrix[x, y] && !materialMat.IsInactive(0, y))
+                    {
+                        if (materialMat[x, y] == 0)
+                        {
+                            if (!string.IsNullOrWhiteSpace(componentsMatrix[x, y].Text))
+                                componentsMatrix[x, y].Text = "";
+                        }
+                        else
+                        {
+                            if (componentsMatrix[x, y].Text != materialMat[x, y].ToString())
+                                componentsMatrix[x, y].Text = materialMat[x, y].ToString();
+                        }
+                    }
+                }
             }
         }
 
@@ -95,6 +218,17 @@ namespace ExcelSearchBox
                 labelTypeCode.Text = "Typenschlüssel: " + obj[1];
                 listDetails.Columns[0].Width = 300;
                 listDetails.Columns[1].Width = 200;
+                try
+                {
+                    checkBoxAvailable.Enabled = true;
+                    checkBoxAvailable.AutoCheck = false;
+                    checkBoxAvailable.Checked = AvailabilityCheck.IsAvailable(obj, materialMat);
+                }
+                catch (Exception)
+                {
+                    checkBoxAvailable.Checked = false;
+                    checkBoxAvailable.Enabled = false;
+                }
                 for (int cnt = 1; cnt < obj.Length; cnt++)
                 {
                     string[] str = new string[2];
@@ -151,5 +285,6 @@ namespace ExcelSearchBox
                 MessageBox.Show(exc.ToString());
             }
         }
+
     }
 }

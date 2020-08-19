@@ -99,9 +99,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AvailabilityCheck.cs" />
     <Compile Include="DataSheetCreator.cs" />
     <Compile Include="EDRExcelWrapper.cs" />
     <Compile Include="ExcelWrapper.cs" />
+    <Compile Include="MaterialMatrix.cs" />
     <Compile Include="OfficeExcelWrapper.cs" />
     <Compile Include="SearchBox.cs">
       <SubType>Form</SubType>
