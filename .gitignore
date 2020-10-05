@@ -340,5 +340,5 @@ ASALocalRun/
 healthchecksdb
 
 # ignore kennliste
-.xls
-.xlsx
+*.xls
+*.xlsx
