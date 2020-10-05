@@ -165,7 +165,7 @@ namespace ExcelSearchBox
             {
                 for (int y = 0; y < MaterialMatrix.SIZE_Y; y++)
                 {
-                    if(!materialMat.IsInactive(0, y))
+                    if (!materialMat.IsInactive(0, y))
                     {
                         if (sender_textbox == null || sender_textbox != componentsMatrix[x, y])
                         {
@@ -180,7 +180,7 @@ namespace ExcelSearchBox
                                     componentsMatrix[x, y].Text = materialMat[x, y].ToString();
                             }
                         }
-                    }                    
+                    }
                 }
             }
         }
@@ -345,7 +345,7 @@ namespace ExcelSearchBox
             openFileDialog.RestoreDirectory = true;
             openFileDialog.CheckFileExists = true;
             var result = openFileDialog.ShowDialog();
-            if(result == DialogResult.OK)
+            if (result == DialogResult.OK)
             {
                 if (File.Exists(openFileDialog.FileName))
                 {
@@ -355,7 +355,7 @@ namespace ExcelSearchBox
                         // update textboxes
                         components_textchanged(null, null);
                     }
-                    catch(Exception exc)
+                    catch (Exception exc)
                     {
                         MessageBox.Show("Could not read file\n" + exc.ToString());
                     }
@@ -365,6 +365,85 @@ namespace ExcelSearchBox
                     MessageBox.Show("Die Datei konnte nicht gefunden werden");
                 }
             }
+        }
+
+        private void uploadLagerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var progbar = new ProgressBarForm("Upload Lagerbestand");
+            progbar.Show(this);
+
+            Task.Run(() =>
+            {
+                try
+                {
+                    int progress = 0;
+                    using (var mysqlclient = new MySQLArticleClient("10.250.0.10", false))
+                    {
+                        mysqlclient.SetAvailibilityMatrix(materialMat);
+                        int row = 49;
+                        string[] productkey = this.excelWrapper.GetRow(row);
+                        int pumpcount = 0;
+                        while (productkey != null)
+                        {
+                            if (AvailabilityCheck.CanResolve(productkey))
+                            {
+                                mysqlclient.SetAvailibility(productkey[0], AvailabilityCheck.IsAvailable(productkey, materialMat), true);
+                                pumpcount++;
+                            }
+
+                            productkey = this.excelWrapper.GetRow(++row);
+
+                            int tmp_prog = (100 * row) / excelWrapper.GetRowCount();
+                            if (tmp_prog > progress)
+                            {
+                                progress = tmp_prog;
+                                progbar.SetProgress(progress);
+                            }
+
+                        }
+                        this.BeginInvoke(new MethodInvoker(delegate
+                        {
+                            MessageBox.Show("Uploaded " + pumpcount + " pumps to server");
+                        }));
+                    }
+                }
+                catch (Exception exc)
+                {
+                    this.BeginInvoke(new MethodInvoker(delegate
+                    {
+                        MessageBox.Show(exc.ToString());
+                    }));
+                }
+            });
+        }
+
+        private void uploadKennlisteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var progbar = new ProgressBarForm("Upload Kennliste");
+            progbar.Show(this);
+
+            Task.Run(() =>
+            {
+                try
+                {
+                    using (var mysqlclient = new MySQLArticleClient("10.250.0.10", false))
+                    {
+                        mysqlclient.ImportFromFile(excelWrapper.GetFilename(), (prog) => progbar.SetProgress(prog));
+                        this.BeginInvoke(new MethodInvoker(delegate
+                        {
+                            MessageBox.Show("Uploaded " + excelWrapper.GetFilename() + " to server");
+                        }));
+
+                    }
+                }
+                catch (Exception exc)
+                {
+                    this.BeginInvoke(new MethodInvoker(delegate
+                    {
+                        MessageBox.Show(exc.ToString());
+                    }));
+                }
+            });
         }
     }
 }

@@ -109,8 +109,8 @@
     <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
     </Reference>
-    <Reference Include="RKPModels, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RKPModels.1.0.3\lib\netstandard2.0\RKPModels.dll</HintPath>
+    <Reference Include="RKPModels, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RKPModels.1.0.5\lib\netstandard2.0\RKPModels.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -153,6 +153,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OfficeExcelWrapper.cs" />
+    <Compile Include="ProgressBarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProgressBarForm.Designer.cs">
+      <DependentUpon>ProgressBarForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SearchBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -161,6 +167,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ProgressBarForm.resx">
+      <DependentUpon>ProgressBarForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SearchBox.resx">
       <DependentUpon>SearchBox.cs</DependentUpon>
     </EmbeddedResource>

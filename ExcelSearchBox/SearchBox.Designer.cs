@@ -58,6 +58,8 @@
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importLagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportLagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uploadLagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uploadKennlisteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl.SuspendLayout();
             this.tabSearch.SuspendLayout();
             this.groupSearchResults.SuspendLayout();
@@ -81,10 +83,10 @@
             this.tabControl.Controls.Add(this.tabDetails);
             this.tabControl.Controls.Add(this.tabComponents);
             this.tabControl.Controls.Add(this.tabSettings);
-            this.tabControl.Location = new System.Drawing.Point(12, 68);
+            this.tabControl.Location = new System.Drawing.Point(0, 56);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1480, 905);
+            this.tabControl.Size = new System.Drawing.Size(968, 631);
             this.tabControl.TabIndex = 0;
             this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
             // 
@@ -95,7 +97,7 @@
             this.tabSearch.Location = new System.Drawing.Point(8, 39);
             this.tabSearch.Name = "tabSearch";
             this.tabSearch.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSearch.Size = new System.Drawing.Size(1464, 858);
+            this.tabSearch.Size = new System.Drawing.Size(1048, 584);
             this.tabSearch.TabIndex = 0;
             this.tabSearch.Text = "Suchen";
             this.tabSearch.UseVisualStyleBackColor = true;
@@ -108,7 +110,7 @@
             this.groupSearchResults.Controls.Add(this.listSearchResults);
             this.groupSearchResults.Location = new System.Drawing.Point(6, 147);
             this.groupSearchResults.Name = "groupSearchResults";
-            this.groupSearchResults.Size = new System.Drawing.Size(1443, 700);
+            this.groupSearchResults.Size = new System.Drawing.Size(1010, 405);
             this.groupSearchResults.TabIndex = 1;
             this.groupSearchResults.TabStop = false;
             this.groupSearchResults.Text = "Ergebnisse";
@@ -122,21 +124,20 @@
             this.listSearchResults.ItemHeight = 25;
             this.listSearchResults.Location = new System.Drawing.Point(14, 30);
             this.listSearchResults.Name = "listSearchResults";
-            this.listSearchResults.Size = new System.Drawing.Size(1412, 604);
+            this.listSearchResults.Size = new System.Drawing.Size(979, 354);
             this.listSearchResults.TabIndex = 0;
             this.listSearchResults.DoubleClick += new System.EventHandler(this.listSearchResults_DoubleClick);
             // 
             // groupSearchInput
             // 
-            this.groupSearchInput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupSearchInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupSearchInput.Controls.Add(this.buttonSearch);
             this.groupSearchInput.Controls.Add(this.label1);
             this.groupSearchInput.Controls.Add(this.textBoxSearchString);
             this.groupSearchInput.Location = new System.Drawing.Point(6, 6);
             this.groupSearchInput.Name = "groupSearchInput";
-            this.groupSearchInput.Size = new System.Drawing.Size(1443, 130);
+            this.groupSearchInput.Size = new System.Drawing.Size(1010, 138);
             this.groupSearchInput.TabIndex = 0;
             this.groupSearchInput.TabStop = false;
             this.groupSearchInput.Text = "Eingabe";
@@ -144,7 +145,7 @@
             // buttonSearch
             // 
             this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSearch.Location = new System.Drawing.Point(1253, 50);
+            this.buttonSearch.Location = new System.Drawing.Point(820, 50);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(148, 47);
             this.buttonSearch.TabIndex = 2;
@@ -175,7 +176,7 @@
             this.tabDetails.Controls.Add(this.groupBox2);
             this.tabDetails.Location = new System.Drawing.Point(8, 39);
             this.tabDetails.Name = "tabDetails";
-            this.tabDetails.Size = new System.Drawing.Size(1468, 927);
+            this.tabDetails.Size = new System.Drawing.Size(1048, 584);
             this.tabDetails.TabIndex = 2;
             this.tabDetails.Text = "Details";
             this.tabDetails.UseVisualStyleBackColor = true;
@@ -189,7 +190,7 @@
             this.groupBox3.Controls.Add(this.listDetails);
             this.groupBox3.Location = new System.Drawing.Point(3, 155);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1462, 769);
+            this.groupBox3.Size = new System.Drawing.Size(1041, 426);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Details";
@@ -206,7 +207,7 @@
             this.listDetails.HideSelection = false;
             this.listDetails.Location = new System.Drawing.Point(20, 30);
             this.listDetails.Name = "listDetails";
-            this.listDetails.Size = new System.Drawing.Size(1436, 733);
+            this.listDetails.Size = new System.Drawing.Size(1015, 390);
             this.listDetails.TabIndex = 0;
             this.listDetails.UseCompatibleStateImageBehavior = false;
             this.listDetails.View = System.Windows.Forms.View.Details;
@@ -231,7 +232,7 @@
             this.groupBox2.Controls.Add(this.labelDetailName);
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1456, 145);
+            this.groupBox2.Size = new System.Drawing.Size(1041, 145);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Übersicht";
@@ -244,7 +245,7 @@
             this.checkBoxAvailable.BackColor = System.Drawing.Color.Transparent;
             this.checkBoxAvailable.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkBoxAvailable.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.checkBoxAvailable.Location = new System.Drawing.Point(1137, 64);
+            this.checkBoxAvailable.Location = new System.Drawing.Point(722, 64);
             this.checkBoxAvailable.Name = "checkBoxAvailable";
             this.checkBoxAvailable.Size = new System.Drawing.Size(138, 29);
             this.checkBoxAvailable.TabIndex = 3;
@@ -254,7 +255,7 @@
             // buttonDatasheet
             // 
             this.buttonDatasheet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDatasheet.Location = new System.Drawing.Point(1281, 57);
+            this.buttonDatasheet.Location = new System.Drawing.Point(866, 57);
             this.buttonDatasheet.Name = "buttonDatasheet";
             this.buttonDatasheet.Size = new System.Drawing.Size(145, 41);
             this.buttonDatasheet.TabIndex = 2;
@@ -286,7 +287,7 @@
             this.tabComponents.Location = new System.Drawing.Point(8, 39);
             this.tabComponents.Name = "tabComponents";
             this.tabComponents.Padding = new System.Windows.Forms.Padding(3);
-            this.tabComponents.Size = new System.Drawing.Size(1468, 927);
+            this.tabComponents.Size = new System.Drawing.Size(1048, 584);
             this.tabComponents.TabIndex = 3;
             this.tabComponents.Text = "Lager";
             this.tabComponents.UseVisualStyleBackColor = true;
@@ -299,7 +300,7 @@
             this.groupComponents.Controls.Add(this.labelStatistics);
             this.groupComponents.Location = new System.Drawing.Point(6, 6);
             this.groupComponents.Name = "groupComponents";
-            this.groupComponents.Size = new System.Drawing.Size(1447, 895);
+            this.groupComponents.Size = new System.Drawing.Size(1036, 572);
             this.groupComponents.TabIndex = 0;
             this.groupComponents.TabStop = false;
             this.groupComponents.Text = "Komponenten";
@@ -308,7 +309,7 @@
             // 
             this.labelStatistics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelStatistics.AutoSize = true;
-            this.labelStatistics.Location = new System.Drawing.Point(6, 790);
+            this.labelStatistics.Location = new System.Drawing.Point(6, 467);
             this.labelStatistics.Name = "labelStatistics";
             this.labelStatistics.Size = new System.Drawing.Size(147, 25);
             this.labelStatistics.TabIndex = 300;
@@ -320,7 +321,7 @@
             this.tabSettings.Location = new System.Drawing.Point(8, 39);
             this.tabSettings.Name = "tabSettings";
             this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSettings.Size = new System.Drawing.Size(1468, 927);
+            this.tabSettings.Size = new System.Drawing.Size(952, 584);
             this.tabSettings.TabIndex = 1;
             this.tabSettings.Text = "Einstellungen";
             this.tabSettings.UseVisualStyleBackColor = true;
@@ -333,7 +334,7 @@
             this.groupBox1.Controls.Add(this.textBoxSourceFile);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1422, 139);
+            this.groupBox1.Size = new System.Drawing.Size(940, 160);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Quelldatei";
@@ -349,20 +350,21 @@
             // 
             // textBoxSourceFile
             // 
+            this.textBoxSourceFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSourceFile.Location = new System.Drawing.Point(182, 62);
             this.textBoxSourceFile.Name = "textBoxSourceFile";
-            this.textBoxSourceFile.Size = new System.Drawing.Size(862, 31);
+            this.textBoxSourceFile.Size = new System.Drawing.Size(752, 31);
             this.textBoxSourceFile.TabIndex = 0;
             // 
             // menuStrip1
             // 
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dateiToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1672, 40);
+            this.menuStrip1.Size = new System.Drawing.Size(968, 40);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -370,7 +372,9 @@
             // 
             this.dateiToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.importLagerToolStripMenuItem,
-            this.exportLagerToolStripMenuItem});
+            this.exportLagerToolStripMenuItem,
+            this.uploadLagerToolStripMenuItem,
+            this.uploadKennlisteToolStripMenuItem});
             this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
             this.dateiToolStripMenuItem.Size = new System.Drawing.Size(91, 38);
             this.dateiToolStripMenuItem.Text = "Datei";
@@ -389,11 +393,25 @@
             this.exportLagerToolStripMenuItem.Text = "Export Lager";
             this.exportLagerToolStripMenuItem.Click += new System.EventHandler(this.exportLagerToolStripMenuItem_Click);
             // 
+            // uploadLagerToolStripMenuItem
+            // 
+            this.uploadLagerToolStripMenuItem.Name = "uploadLagerToolStripMenuItem";
+            this.uploadLagerToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
+            this.uploadLagerToolStripMenuItem.Text = "Upload Lager";
+            this.uploadLagerToolStripMenuItem.Click += new System.EventHandler(this.uploadLagerToolStripMenuItem_Click);
+            // 
+            // uploadKennlisteToolStripMenuItem
+            // 
+            this.uploadKennlisteToolStripMenuItem.Name = "uploadKennlisteToolStripMenuItem";
+            this.uploadKennlisteToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
+            this.uploadKennlisteToolStripMenuItem.Text = "Upload Kennliste";
+            this.uploadKennlisteToolStripMenuItem.Click += new System.EventHandler(this.uploadKennlisteToolStripMenuItem_Click);
+            // 
             // SearchBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1672, 1206);
+            this.ClientSize = new System.Drawing.Size(968, 690);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -456,6 +474,8 @@
         private System.Windows.Forms.ToolStripMenuItem dateiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importLagerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportLagerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem uploadLagerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem uploadKennlisteToolStripMenuItem;
     }
 }
 
